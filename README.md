@@ -212,7 +212,7 @@ export default {
 
 ## 参数说明：子组件this.DMK(bindKey, option)
 |参数名|类型|默认值|备注|
-:-—:|:—:|:—:|:—:|
+:-—:|:—-:|:-—:|:-—:|
 bindKey|string|'arr'|传递数据为字符串类型时，表示指定子组件绑定数据存储位置
 option|object|{bindKey:'arr', d:'$attrs.d', m:'$attrs.m', k:'$attrs.k', childKeys:'keys', undefined:'', empty:'', null:''}|DMK实现默认值说明
 option.bindKey|string|'arr'|指定子组件绑定数据存储位置
@@ -228,7 +228,7 @@ return返回值|array|[]|如果bindKey为字符串且为真，则返回this[bind
 ## 参数说明：父组件this.DMK(bindKey, maps2keys, childKeys)
 ### 可以获取到所有通过子组件非prop形式传参处理后的数据，即把子组件处理数据的功能原封不动的实现在了父组件
 |参数名|类型|默认值|备注|
-:—:|:—:|:—:|:—:|
+:-—:|:-—:|:-—:|:-—:|
 bindKey|array、object|'arr'|传递数据为数组类型或对象类型时，表示父组件调用
 maps2keys|object|false|如果maps2keys为对象类型，则keys=maps2keys
 maps2keys|array|false|如果maps2keys为数组类型，则maps=maps2keys
