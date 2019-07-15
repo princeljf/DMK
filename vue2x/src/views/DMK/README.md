@@ -3,21 +3,32 @@
 ### DMK主要功能：
 1. 数据处理和数据转换
 2. 通过参数配置驱动数据映射
-3. 团队代码风格统一、不依赖API文档提前开发
+3. 团队代码风格统一
 4. 代码简洁明了、提高可维护性
 
 ## 一、环境支持
-- 子组件使用了非prop特性，目前需要this.$attrs支持（'Vue当前版本不支持非prop特性，请调用this.DMK("arr",option)时指定option的d/m/k配置项指向props值或者通过父组件处理！）
-- 父组件不依赖prop特性和props，专职处理数据，等价于调用一个方法
+- 子组件形式：使用了非prop特性，目前需要this.$attrs支持（'Vue当前版本不支持非prop特性，请调用this.DMK("arr",option)时指定option的d/m/k配置项指向props值或者通过父组件处理！）
+- 父组件形式：不依赖prop特性和props，专职处理数据，等价于调用一个方法
 
 ## 二、引用
 - Babel
-(```)
+```
 import DMK from 'DMK.js'
 export default {
-    mixins: [DMK]
+    mixins: [DMK],
+    data(){
+        return {
+            bindKey: []
+        }
+    },
+    created(){
+        //子组件形式调用
+        this.DMK('bindKey', option);//声明绑定this.bindKey数组
+        //父组件形式调用
+        let arr = this.DMK(arr2obj, maps2keys, childKeys);//arr为处理后的数据
+    }
 }
-(```)
+```
 
 ## 三、hello world对比（场景：渲染列表数据）
 渲染结果需求：
@@ -25,7 +36,7 @@ export default {
 - 李四    26岁
 - 王五    /
 
-(```)
+```
 //父组件 parent.vue
 <template>
     <div>
@@ -70,65 +81,11 @@ export default {
     props:['arr']
 }
 </script>
------- DMK实现父组件 ------
-//父组件 parent.vue
-<template>
-    <div>
-        <Child :arr="arr"></Child>
-    </div>
-</template>
-<script>
-import DMK from 'DMK.js';
-import Child form './child';
-export default {
-	mixins: [DMK],
-    data(){
-        return {
-        	arr:[],
-            //接口数据
-            apiData:[
-            	{name: '张三', age:'24'},
-            	{name: '李四', age:'26'},
-            	{name: '王五', age:''}
-            ],
-            //合并子组件的keys对象，指向绑定apiData的name和age
-            keys:{
-            	text: 'name',//支持string、function、object
-            	value: {
-            		//更多高级用法参照接口说明
-            		default: (item, i, apiData)=>{
-	            		//数据处理和逻辑处理
-	            		return item.name + '岁';
-	            	},//default为默认指向参数：value:'age'等同于value:{default:'age'}
-	            	empty: '/',//为空字符串转换为另一个值，例如'/'，默认配置项empty(空字符串)、undefined、null转换为空字符串''
-            	}
-            }
-        }
-    },
-    created(){
-    	//数据处理和数据转换，不关注子组件实现
-    	this.arr = this.DMK(this.apiData, this.keys);
-    }
-}	
-</script>
------- 
-//子组件 child.vue
-<template>
-    <div v-for=“(item,i) in arr”>
-    	<span class=“left”>{{item.name}}</span><span class=“right”>{{item.age}}岁</span>
-    </div>
-</template>
-<script>
-export default {
-    data(){
-        return {
-            //
-        }
-    },
-    props:['arr']
-}
-</script>
------- DMK实现子组件 ------
+```
+###常规代码如上示例，因开发者的代码习惯不同，可能会导致「子组件」模板实现方案各不相同，增加了代码的复杂度和阅读难度。
+
+###DMK实现子组件（推荐）
+```
 //父组件 parent.vue
 <template>
     <div>
@@ -189,13 +146,75 @@ export default {
     }
 }
 </script>
-(```)
+```
+###DMK子组件想要做的事：新增一个keys对象代替传统写死key值的方案，可通过父组件灵活控制。提高模板复用率，DMK还实现了自动watch数据功能等。
+
+###DMK实现父组件（推荐：VUE不支持非prop特性时，纯当做方法调用处理数据时）
+```
+//父组件 parent.vue
+<template>
+    <div>
+        <Child :arr="arr"></Child>
+    </div>
+</template>
+<script>
+import DMK from 'DMK.js';
+import Child form './child';
+export default {
+	mixins: [DMK],
+    data(){
+        return {
+        	arr:[],
+            //接口数据
+            apiData:[
+            	{name: '张三', age:'24'},
+            	{name: '李四', age:'26'},
+            	{name: '王五', age:''}
+            ],
+            //合并子组件的keys对象，指向绑定apiData的name和age
+            keys:{
+            	text: 'name',//支持string、function、object
+            	value: {
+            		//更多高级用法参照接口说明
+            		default: (item, i, apiData)=>{
+	            		//数据处理和逻辑处理
+	            		return item.name + '岁';
+	            	},//default为默认指向参数：value:'age'等同于value:{default:'age'}
+	            	empty: '/',//为空字符串转换为另一个值，例如'/'，默认配置项empty(空字符串)、undefined、null转换为空字符串''
+            	}
+            }
+        }
+    },
+    created(){
+    	//数据处理和数据转换，不关注子组件实现
+    	this.arr = this.DMK(this.apiData, this.keys);
+    }
+}	
+</script>
+------ 
+//子组件 child.vue
+<template>
+    <div v-for=“(item,i) in arr”>
+    	<span class=“left”>{{item.name}}</span><span class=“right”>{{item.age}}岁</span>
+    </div>
+</template>
+<script>
+export default {
+    data(){
+        return {
+            //
+        }
+    },
+    props:['arr']
+}
+</script>
+```
 
 ## 参数说明：子组件this.DMK(bindKey, option)
-|参数名|类型|默认值|备注|
-|:—:|:—:|:—:|:—:|
+| 参数名 | 类型 | 默认值 | 备注 |
+| :------| :------: | :------: | :------ |
 |bindKey|string|'arr'|传递数据为字符串类型时，表示指定子组件绑定数据存储位置|
-|option|object|{bindKey:'arr', d:'$attrs.d', m:'$attrs.m', k:'$attrs.k', childKeys:'keys', undefined:'', empty:'', null:''}|DMK实现默认值说明|
+|option|object|参照如下说明|DMK实现默认值说明|
 |option.bindKey|string|'arr'|指定子组件绑定数据存储位置|
 |option.d|string|'$attrs.d'|非prop特性支持存储 数据初始对象|
 |option.m|string|'$attrs.m'|非prop特性支持存储 数据转换对象|
@@ -208,9 +227,9 @@ export default {
 
 ## 参数说明：父组件this.DMK(bindKey, maps2keys, childKeys)
 ### 可以获取到所有通过子组件非prop形式传参处理后的数据，即把子组件处理数据的功能原封不动的实现在了父组件
-|参数名|类型|默认值|备注|
-|:—:|:—:|:—:|:—:|
-|bindKey|array、object|'arr'|传递数据为数组类型或对象类型时，表示父组件调用|
+| 参数名 | 类型 | 默认值 | 备注 |
+| :------| :------: | :------: | :------ |
+|bindKey|array/object|'arr'|传递数据为数组类型或对象类型时，表示父组件调用|
 |maps2keys|object|false|如果maps2keys为对象类型，则keys=maps2keys|
 |maps2keys|array|false|如果maps2keys为数组类型，则maps=maps2keys|
 |childKeys|object|keys|如果childKeys为对象类型，则childKey=maps2keys，否则childKey=keys|
