@@ -25,7 +25,7 @@ export default {
 - 李四    26岁
 - 王五    /
 
-(```)
+```
 //父组件 parent.vue
 <template>
     <div>
@@ -189,7 +189,7 @@ export default {
     }
 }
 </script>
-(```)
+```
 
 ## 参数说明：子组件this.DMK(bindKey, option)
 |参数名|类型|默认值|备注|
