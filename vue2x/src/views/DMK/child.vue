@@ -6,7 +6,7 @@
     </div>
 </template>
 <script>
-import DMK from './js/dataMapsKeysMixins'
+import DMK from './lib/dataMapsKeysMixins'
 export default {
     mixins: [DMK],
     data() {

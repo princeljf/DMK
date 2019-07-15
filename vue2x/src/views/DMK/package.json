@@ -1,0 +1,19 @@
+{
+  "name": "DMK",
+  "version": "1.0.0",
+  "description": "DMK.js（dataMapsKeysMixins）for Vue mixins",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "vue", "mixins"
+  ],
+  "author": "DumbBunny",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/princeljf/DMK.git"
+  },
+  "homepage": "https://github.com/princeljf/DMK#readme"
+}
