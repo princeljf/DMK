@@ -7,17 +7,28 @@
 4. 代码简洁明了、提高可维护性
 
 ## 一、环境支持
-- 子组件使用了非prop特性，目前需要this.$attrs支持（'Vue当前版本不支持非prop特性，请调用this.DMK("arr",option)时指定option的d/m/k配置项指向props值或者通过父组件处理！）
-- 父组件不依赖prop特性和props，专职处理数据，等价于调用一个方法
+- 子组件形式：使用了非prop特性，目前需要this.$attrs支持（'Vue当前版本不支持非prop特性，请调用this.DMK("arr",option)时指定option的d/m/k配置项指向props值或者通过父组件处理！）
+- 父组件形式：不依赖prop特性和props，专职处理数据，等价于调用一个方法
 
 ## 二、引用
 - Babel
-(```)
+```
 import DMK from 'DMK.js'
 export default {
-    mixins: [DMK]
+    mixins: [DMK],
+    data(){
+        return {
+            bindKey: []
+        }
+    },
+    created(){
+        //子组件形式调用
+        this.DMK('bindKey', option);//声明绑定this.bindKey数组
+        //父组件形式调用
+        let arr = this.DMK(arr2obj, maps2keys, childKeys);//arr为处理后的数据
+    }
 }
-(```)
+```
 
 ## 三、hello world对比（场景：渲染列表数据）
 渲染结果需求：
@@ -202,27 +213,27 @@ export default {
 ## 参数说明：子组件this.DMK(bindKey, option)
 |参数名|类型|默认值|备注|
 :-—:|:—:|:—:|:—:|
-bindKey|string|'arr'|传递数据为字符串类型时，表示指定子组件绑定数据存储位置|
-option|object|{bindKey:'arr', d:'$attrs.d', m:'$attrs.m', k:'$attrs.k', childKeys:'keys', undefined:'', empty:'', null:''}|DMK实现默认值说明|
-option.bindKey|string|'arr'|指定子组件绑定数据存储位置|
-option.d|string|'$attrs.d'|非prop特性支持存储 数据初始对象|
-option.m|string|'$attrs.m'|非prop特性支持存储 数据转换对象|
-option.k|string|'$attrs.k'|非prop特性支持存储 数据映射对象|
-option.childKeys|string|'keys'|指定子组件绑定数据存储位置|
-option.undefined|string|''|undefined数据转换默认值|
-option.empty|string|''|empty(空字符串)数据转换默认值|
-option.null|string|''|null数据转换默认值|
-return返回值|array|[]|如果bindKey为字符串且为真，则返回this[bindKey],否则返回false|
+bindKey|string|'arr'|传递数据为字符串类型时，表示指定子组件绑定数据存储位置
+option|object|{bindKey:'arr', d:'$attrs.d', m:'$attrs.m', k:'$attrs.k', childKeys:'keys', undefined:'', empty:'', null:''}|DMK实现默认值说明
+option.bindKey|string|'arr'|指定子组件绑定数据存储位置
+option.d|string|'$attrs.d'|非prop特性支持存储 数据初始对象
+option.m|string|'$attrs.m'|非prop特性支持存储 数据转换对象
+option.k|string|'$attrs.k'|非prop特性支持存储 数据映射对象
+option.childKeys|string|'keys'|指定子组件绑定数据存储位置
+option.undefined|string|''|undefined数据转换默认值
+option.empty|string|''|empty(空字符串)数据转换默认值
+option.null|string|''|null数据转换默认值
+return返回值|array|[]|如果bindKey为字符串且为真，则返回this[bindKey],否则返回false
 
 ## 参数说明：父组件this.DMK(bindKey, maps2keys, childKeys)
 ### 可以获取到所有通过子组件非prop形式传参处理后的数据，即把子组件处理数据的功能原封不动的实现在了父组件
 |参数名|类型|默认值|备注|
 :—:|:—:|:—:|:—:|
-bindKey|array、object|'arr'|传递数据为数组类型或对象类型时，表示父组件调用|
-maps2keys|object|false|如果maps2keys为对象类型，则keys=maps2keys|
-maps2keys|array|false|如果maps2keys为数组类型，则maps=maps2keys|
-childKeys|object|keys|如果childKeys为对象类型，则childKey=maps2keys，否则childKey=keys|
-return返回值|array|[]|新数组|
+bindKey|array、object|'arr'|传递数据为数组类型或对象类型时，表示父组件调用
+maps2keys|object|false|如果maps2keys为对象类型，则keys=maps2keys
+maps2keys|array|false|如果maps2keys为数组类型，则maps=maps2keys
+childKeys|object|keys|如果childKeys为对象类型，则childKey=maps2keys，否则childKey=keys
+return返回值|array|[]|新数组
 
 ## 反馈
 - 如果有任何纰漏或错误，请发送问题到我的邮箱：384234884@qq.com
