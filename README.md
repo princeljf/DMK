@@ -105,7 +105,7 @@ export default {
             ],
             //合并子组件的keys对象，指向绑定apiData的name和age
             keys:{
-            	text: 'name',//支持string、function、object
+            	text: 'name',//支持string(嵌套支持点语法name.1.a)、function、object
             	value: {
             		//更多高级用法参照文档说明
             		default: (item, i, apiData)=>{
@@ -209,6 +209,54 @@ export default {
 }
 </script>
 ```
+
+## 参数说明：父组件传递数据给子组件
+```
+例子：
+<child-components :d="arr/obj" :m="maps" :k="keys"></child-components>
+<script>
+export default {
+    data(){
+        return {
+            arr:[
+                {name: '张三', age:'24'},
+            	{name: '李四', age:'26'},
+            	{name: '王五', age:''}
+            ],
+            keys:{
+                text: 'name', value: 'age'
+            },
+            obj:{
+                name1: '张三', value1: '24',
+                name2: '李四', value2: [{age:'26'}],
+                name3: '王五', value3: '',
+                name4: '特殊值', value3: null/undefined/empty(''),
+            },
+            //当d为obj对象时，配合使用
+            maps:[
+                {text: 'name1', value: 'value1'},//等价于value: {default: 'value1'}
+                {text: 'name2', value: 'value2.0.age'},//嵌套数据支持点语法引用
+                {text: 'name3', value: (obj,value3)=>{
+                    //箭头函数this指向父组件实例，因此可以引用this.other其它数据源或者方法等
+                    return obj[value3]==='' ? '0' : obj[value3];//各种逻辑处理
+                }},
+                {text: 'name4', value: {default:'value4', undefined:'未定义', null:'我是null', empty:'我是空字符串'},//特殊值转换
+            ],
+            other:{
+                //...
+            }
+            
+        }
+    },
+}
+</script>
+```
+| 参数名 | 类型 | 默认值 | 备注 |
+| :------| :------: | :------: | :------ |
+|d|array/object|undefined|父组件传递给子组件的数据源，即this.$attrs.d|
+|m|array|undefined|把d(object)转换为有序数组数据的转换配置对象|
+|k|object|undefined|等价于子组件定义的keys映射配置对象，传递此参数会进行合并:extend(keys,k)|
+
 
 ## 参数说明：子组件this.DMK(bindKey, option)
 | 参数名 | 类型 | 默认值 | 备注 |
