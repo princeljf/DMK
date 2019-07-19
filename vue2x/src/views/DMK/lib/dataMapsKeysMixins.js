@@ -152,7 +152,7 @@ const dataMapsKeysMixins = {
                 m = this._getSplitData_(this, opt.m);
                 k = this._getSplitData_(this, opt.k);
                 ck = this._getSplitData_(this, opt.childKeys);
-                if(LHH.isArray(d) || LHH.isObject(d)){
+                if( (LHH.isArray(d) || LHH.isObject(d)) && Object.keys(d).length ){
                     arr = this._getObj2arr_(d, m, k, ck);
                 }else{
                     arr = [];
