@@ -223,9 +223,6 @@ export default {
             	{name: '李四', age:'26'},
             	{name: '王五', age:''}
             ],
-            keys:{
-                text: 'name', value: 'age'
-            },
             obj:{
                 name1: '张三', value1: '24',
                 name2: '李四', value2: [{age:'26'}],
@@ -242,6 +239,9 @@ export default {
                 }},
                 {text: 'name4', value: {default:'value4', undefined:'未定义', null:'我是null', empty:'我是空字符串'},//特殊值转换
             ],
+            keys:{
+                text: 'name', value: 'age'  //同样支持maps高级语法特性
+            },
             other:{
                 //...
             }
@@ -253,9 +253,9 @@ export default {
 ```
 | 参数名 | 类型 | 默认值 | 备注 |
 | :------| :------: | :------: | :------ |
-|d|array/object|undefined|父组件传递给子组件的数据源，即this.$attrs.d|
-|m|array|undefined|把d(object)转换为有序数组数据的转换配置对象|
-|k|object|undefined|等价于子组件定义的keys映射配置对象，传递此参数会进行合并:extend(keys,k)|
+|d|array/object|undefined|必传：父组件传递给子组件的数据源，即this.$attrs.d|
+|m|array|undefined|可不传：把object转换为有序数组数据的转换配置对象|
+|k|object|子组件keys|可不传：等价于子组件定义的keys映射配置对象，传递此参数会进行合并:extend(keys,k)|
 
 
 ## 参数说明：子组件this.DMK(bindKey, option)
