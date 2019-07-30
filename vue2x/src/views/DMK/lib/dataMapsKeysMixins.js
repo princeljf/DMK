@@ -134,7 +134,7 @@ const dataMapsKeysMixins = {
                 //使用场景：作为父组件调用传参为对象或者数据时，默认处理数据模式
                 m = LHH.isArray(maps2keys) ? maps2keys : false;
                 k = LHH.isObject(maps2keys) ? maps2keys : false;
-                ck = LHH.isObject(childKeys) ? childKeys : k;
+                ck = LHH.isObject(childKeys) ? this._getk2ck_(k, childKeys) : this._getk2ck_(k);
                 arr = this._getObj2arr_(name, m, k, ck);
             }else if( LHH.isString(name) ){
                 //使用场景：作为子组件调用传参为字符串时，默认绑定this.optionDef_mixin.bindKey处理数据模式
@@ -160,6 +160,16 @@ const dataMapsKeysMixins = {
                 this[name] = arr;
             }
             return arr;
+        },
+        _getk2ck_(keys, childKeys){
+            let obj = {};
+            for(let k in keys){
+                obj[k] = k;
+            }
+            if(LHH.isObject(childKeys)){
+                LHH.extend(obj, childKeys);
+            }
+            return obj;
         },
         _getSplitData_(data,splitStr='',splitFlag='.'){
             let val = data;
