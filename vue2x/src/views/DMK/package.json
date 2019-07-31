@@ -1,10 +1,11 @@
 {
   "name": "dmk",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "DMK.js（dataMapsKeysMixins）for Vue mixins",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel lib -d dist"
   },
   "keywords": [
     "vue",
@@ -16,5 +17,11 @@
     "type": "git",
     "url": "git+https://github.com/princeljf/DMK.git"
   },
-  "homepage": "https://github.com/princeljf/DMK#readme"
+  "homepage": "https://github.com/princeljf/DMK#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1"
+  }
 }

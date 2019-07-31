@@ -21,7 +21,7 @@ const LHH = (()=>{
     　　*length参数的数量
     　　*deep是否深度操作
     　　*/
-    　　var options, name, src, copy, copyIsArray, clone,
+    　　let options, name, src, copy, copyIsArray, clone,
     　　　　target = args[0] || {},
     　　　　i = 1,
     　　　　length = args.length,
