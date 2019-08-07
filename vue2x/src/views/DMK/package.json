@@ -1,6 +1,6 @@
 {
   "name": "dmk",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "DMK.js（dataMapsKeysMixins）for Vue mixins",
   "main": "index.js",
   "scripts": {
