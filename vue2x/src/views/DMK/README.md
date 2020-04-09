@@ -1,31 +1,32 @@
 # DMK.js（dataMapsKeysMixins）for Vue mixins
 
-### DMK主要功能：
+### DMK v2.0.0主要功能：
 1. 数据处理和数据转换
 2. 通过参数配置驱动数据映射
 3. 团队代码风格统一
-4. 代码简洁明了、提高可维护性
+4. 代码简洁、提高可维护性
 
 ## 一、环境支持
-- 子组件形式：使用了非prop特性，目前需要this.$attrs支持（'Vue当前版本不支持非prop特性，请调用this.DMK("arr",option)时指定option的d/m/k配置项指向props值或者通过父组件处理！）
-- 父组件形式：不依赖prop特性和props，专职处理数据，等价于调用一个方法
+- 子组件形式：使用了非prop特性，目前需要this.$attrs支持（'Vue当前版本不支持非prop特性，请调用DMK.init("arr",option)时指定option.dmkMapOpt的d/m/k/ck配置项指向props值！）
+- 父组件形式：不依赖prop特性和props，专职处理数据，等价于调用一个方法DMK.get(arr2obj, maps2keys);
 
 ## 二、引用
 - Babel
 ```
 import DMK from 'DMK.js'
 export default {
-    mixins: [DMK],
+    mixins: [DMK.mixins],
     data(){
         return {
             bindKey: []
         }
     },
     created(){
-        //子组件形式调用
-        this.DMK('bindKey', option);//声明绑定this.bindKey数组
+        //子组件初始化绑定调用
+        DMK.init('bindKey', option);//声明绑定this.bindKey数组，父组件数据源变动后，实现自动更新bindKey
         //父组件形式调用
-        let arr = this.DMK(arr2obj, maps2keys, childKeys);//arr为处理后的数据
+        let arr = DMK.get(arr2obj, maps2keys);//arr为处理后的数据
+        this.bindKey = arr;//不会自动更新
     }
 }
 ```
@@ -72,7 +73,7 @@ export default {
 <script>
 import DMK from 'DMK.js';
 export default {
-	mixins: [DMK],
+	mixins: [DMK.mixins],
     data(){
         return {
             //
@@ -103,7 +104,7 @@ export default {
             	{name: '李四', age:'26'},
             	{name: '王五', age:''}
             ],
-            //合并子组件的keys对象，指向绑定apiData的name和age
+            //合并子组件的keys对象，指向绑定apiData的name和age，开发逻辑无需关注子组件实现
             keys:{
             	text: 'name',//支持string(嵌套支持点语法name.1.a)、function、object
             	value: {
@@ -142,7 +143,7 @@ export default {
     },
     created(){
     	//初始化
-    	this.DMK();//等同于this.DMK('arr')，可指定为其它存储位置    	
+    	DMK.init();//等同于DMK.init('arr')，可指定为其它存储位置    	
     }
 }
 </script>
@@ -161,7 +162,7 @@ export default {
 import DMK from 'DMK.js';
 import Child form './child';
 export default {
-	mixins: [DMK],
+	mixins: [DMK.mixins],
     data(){
         return {
         	arr:[],
@@ -187,7 +188,7 @@ export default {
     },
     created(){
     	//数据处理和数据转换，不关注子组件实现
-    	this.arr = this.DMK(this.apiData, this.keys);
+    	this.arr = DMK.get(this.apiData, this.keys);
     }
 }	
 </script>
@@ -258,30 +259,62 @@ export default {
 |k|object|子组件keys|可不传：等价于子组件定义的keys映射配置对象，传递此参数会进行合并:extend(keys,k)|
 
 
-## 参数说明：子组件this.DMK(bindKey, option)
+## 参数说明：子组件DMK.init(bindKey, option)
 | 参数名 | 类型 | 默认值 | 备注 |
 | :------| :------: | :------: | :------ |
-|bindKey|string|'arr'|传递数据为字符串类型时，表示指定子组件绑定数据存储位置|
+|bindKey|string|'arr'|1.传递参数为字符串类型时，表示指定子组件绑定数据存储位置|
+|bindKey|object|需要指定{key:value}|2.传递参数为对象类型时，key表示数据源名称、value表示指定子组件绑定数据存储位置(支持点语法)|
+|bindKey|array|支持格式：['str',{key:value},...]|3.传递参数为数组类型时，表示指定多个子组件绑定数据存储位置|
 |option|object|参照如下说明|DMK实现默认值说明|
-|option.bindKey|string|'arr'|指定子组件绑定数据存储位置|
-|option.d|string|'$attrs.d'|非prop特性支持存储 数据初始对象|
-|option.m|string|'$attrs.m'|非prop特性支持存储 数据转换对象|
-|option.k|string|'$attrs.k'|非prop特性支持存储 数据映射对象|
-|option.childKeys|string|'keys'|指定子组件绑定数据存储位置|
+|option.dmkMapOpt|object|参照如下说明|例：let option = {dmkMapOpt:{d:'d', m:'m', k:'k'}}|
+|option.dmkMapOpt.d|string|'$attrs.d'|非prop特性支持存储 数据初始对象|
+|option.dmkMapOpt.m|string|'$attrs.m'|非prop特性支持存储 数据转换对象|
+|option.dmkMapOpt.k|string|'$attrs.k'|非prop特性支持存储 数据映射对象|
+|option.ckMapOpt|object|'keys'|非prop特性支持存储 数据映射对象|
+|option.ckMapOpt[bindKey]|string|'keys'|key为参数一指定的bindKey名，例：let option = {ckMapOpt:{arr:'keys', arr2:'keys2', ...}}|
 |option.undefined|string|''|undefined数据转换默认值|
 |option.empty|string|''|empty(空字符串)数据转换默认值|
 |option.null|string|''|null数据转换默认值|
 |return返回值|array|[]|如果bindKey为字符串且为真，则返回this[bindKey],否则返回false|
 
-## 参数说明：父组件this.DMK(bindKey, maps2keys, childKeys)
+## 参数说明：父组件DMK.get(arr2obj, maps2keys)
 ### 可以获取到所有通过子组件非prop形式传参处理后的数据，即把子组件处理数据的功能原封不动的实现在了父组件
 | 参数名 | 类型 | 默认值 | 备注 |
 | :------| :------: | :------: | :------ |
-|bindKey|array/object|'arr'|传递数据为数组类型或对象类型时，表示父组件调用|
+|arr2obj|array/object|undefined|传递数据为数组类型或对象类型时，表示父组件调用|
 |maps2keys|object|false|如果maps2keys为对象类型，则keys=maps2keys|
 |maps2keys|array|false|如果maps2keys为数组类型，则maps=maps2keys|
-|childKeys|object|keys|如果childKeys为对象类型，则childKey=maps2keys，否则childKey=keys|
 |return返回值|array|[]|新数组|
+- 其它说明：当arr2obj为对象时：maps2keys可为对象或者数组，当arr2obj为数组时：maps2keys可为对象配合使用
+
+### DMK升级相关问题
+- DMK v2.0.0向下兼容v1.1.0所有功能，优化了内部代码结构、新增拓展功能。
+- 一、变更说明：
+1. 第一步引入不变：
+   ```
+   import DMK from 'DMK.js'
+   ```
+2. 第二步组件mixins注册
+   ```
+   //原来
+   mixins: [DMK]
+   //新版替代
+   mixins: [DMK.mixins]
+   ```
+3. 第三步created方法初始化调用
+   ```
+   //原来
+   this.DMK();
+   //新版替代
+   DMK.init();
+   ```
+4. 注意：默认不使用mixins绑定功能，只处理数据提供了新的接口DMK.get()方法替代原有调用形式
+   ```
+   //原来
+   let arr = this.DMK(arr2obj, maps2keys);
+   //新版替代
+   let arr = DMK.get(arr2obj, maps2keys);//可无需注册DKM.mixins了
+   ```
 
 ## 反馈
 - 如果有任何纰漏或错误，请发送问题到我的邮箱：384234884@qq.com

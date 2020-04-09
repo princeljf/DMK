@@ -6,9 +6,9 @@
     </div>
 </template>
 <script>
-import DMK from './lib/dataMapsKeysMixins'
+import DMK from './lib/DMK.JS'
 export default {
-    mixins: [DMK],
+    mixins: [DMK.mixins],
     data() {
         return {
             arr: [],
@@ -19,7 +19,7 @@ export default {
         };
     },
     created() {
-        this.DMK('arr');
+        DMK.init('arr');
     },
 };
 </script>
