@@ -11,7 +11,7 @@
 
 <script>
 import commonMenus from './commonMenus';
-import {install, introduce} from './demo.js';
+import {install, introduce, thanks} from './demo.js';
 export default {
     name: 'common-main-box',
     data() { 
@@ -20,6 +20,7 @@ export default {
                 arr: [
                     { text: '安装', tpl: 'install' },
                     { text: '介绍', tpl: 'introduce' },
+                    { text: '致谢', tpl: 'thanks' },
                 ],
                 click:(item,i,arr)=>{
                     this.component.tpl = arr[i].tpl;
@@ -32,7 +33,7 @@ export default {
     },
     components:{ 
         commonMenus,
-        install, introduce, 
+        install, introduce, thanks,
     },
     created() { 
         
