@@ -38,7 +38,7 @@ export default {
         child
     },
     created() { 
-        this.apiData3 = DMK.get(this.apiData2, this.keys2);//
+        this.apiData3 = DMK.get(this.apiData2, this.keys2);//等价于<child :d="apiData2" :k="keys2"></child>
     },
 }
 </script>

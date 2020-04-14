@@ -15,6 +15,9 @@ export default {
 html,body{
   height: 100%;
 }
+h2{
+  text-align: center;
+}
 #app{
   width: 100%;
   min-width: 320px;

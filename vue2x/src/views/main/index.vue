@@ -58,4 +58,10 @@ export default {
     box-sizing: border-box;
     padding: 0 15px 0 135px;
 }
+
+.common-tpl-title{
+    margin-top: 30px;
+    line-height: 60px;
+    font-size: 20px;
+}
 </style>
