@@ -32,4 +32,15 @@ html,body{
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
+
+.common-demo-tpl{
+  width: 200px;
+  margin: 12px 0;
+}
+.common-box-left-right{
+  background-color: #eee;
+}
+.common-box-left-right .right{
+  float: right;
+}
 </style>

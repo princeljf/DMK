@@ -91,7 +91,7 @@ var get_d2array = function get_d2array(d, k, option) {
     }
     var retArr = [];
     d.map(function (item, i) {
-        retArr.push(get_d2object(d, k, opt.ck, item, i, option.valMapOpt));
+        retArr.push(get_d2object(d, k, opt.ck, item, i, opt.valMapOpt));
     });
     return retArr;
 };

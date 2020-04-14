@@ -80,7 +80,7 @@ const get_d2array = (d, k, option)=>{
     }
     let retArr = [];
     d.map((item,i)=>{
-        retArr.push( get_d2object(d, k, opt.ck, item, i, option.valMapOpt) );
+        retArr.push( get_d2object(d, k, opt.ck, item, i, opt.valMapOpt) );
     });
     return retArr;
 };

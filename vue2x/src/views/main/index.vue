@@ -11,7 +11,7 @@
 
 <script>
 import commonMenus from './commonMenus';
-import {install, introduce, thanks} from './demo.js';
+import {install, introduce, HelloWorld, thanks} from './demo.js';
 export default {
     name: 'common-main-box',
     data() { 
@@ -19,6 +19,9 @@ export default {
             munus:{
                 arr: [
                     { text: '安装', tpl: 'install' },
+                    { text: '介绍', tpl: 'introduce' },
+                    { text: 'HelloWorld', tpl: 'HelloWorld' },
+                    { text: '介绍', tpl: 'introduce' },
                     { text: '介绍', tpl: 'introduce' },
                     { text: '致谢', tpl: 'thanks' },
                 ],
@@ -33,7 +36,7 @@ export default {
     },
     components:{ 
         commonMenus,
-        install, introduce, thanks,
+        install, introduce, HelloWorld, thanks,
     },
     created() { 
         
@@ -41,7 +44,7 @@ export default {
 }
 </script>
 
-<style lang="" scoped>
+<style lang="">
 .common-main-box .left-box{
     box-sizing: border-box;
     padding: 0 15px;
