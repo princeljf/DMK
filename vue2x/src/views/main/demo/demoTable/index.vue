@@ -8,6 +8,7 @@
 <script>
 import DMK from 'dmk'
 import child from './child'
+import dateUtil from '@/util/dateUtil.js'
 export default {
     data() { 
         return {
@@ -19,7 +20,6 @@ export default {
             titleArr:[
                 {title: '姓名', key: 'name' },
                 {title: '出生日期', key: 'birthday' },
-                {title: '年龄', key: 'age' },
                 {title: '手机号', key: 'phone' },
                 {title: '报名日期', key: 'date' },
                 {title: '科目一', key: 'score1' },
@@ -29,12 +29,18 @@ export default {
                 {title: '是否合格', key: 'result' },
             ],
             titleKeys:{
-                name: 'studenName',
-                birthday: 'birthday',
-                age: 'age',
-                phone: 'phone',
-                date: 'date',
-                result: 'result',
+                name: 'studenName',//映射key
+                birthday: (item)=>{
+                    return item.birthday.replace(/\-/g, '\/');//函数处理
+                },
+                phone: 'phoneNumber',
+                date: (item)=>{
+                    return dateUtil.format(item.datetime, 'yyyy-MM-dd');
+                },
+                score4: {default: 'score4', '错误数据':'被转换了' },
+                result: (item)=>{
+                    return item.score1>=80&&item.score2>=80&&item.score3>=80&&item.score4>=80 ? '合格' : '/';
+                },
             }
             
         }
@@ -43,7 +49,8 @@ export default {
         child
     },
     methods:{
-    }
+    },
+    
 }
 </script>
 
