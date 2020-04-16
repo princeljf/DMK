@@ -37,7 +37,7 @@ export default {
                 date: (item)=>{
                     return dateUtil.format(item.datetime, 'yyyy-MM-dd');
                 },
-                score4: {default: 'score4', '错误数据':'被转换了' },
+                score4: {default: 'score4', '错误数据':'转换值' },
                 result: (item)=>{
                     return item.score1>=80&&item.score2>=80&&item.score3>=80&&item.score4>=80 ? '合格' : '/';
                 },

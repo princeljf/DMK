@@ -1,7 +1,10 @@
 <template>
     <div class="common-demo-tpl">
         <h3>渲染结果</h3>
-        <p><span @click="clickType('score')">分数</span><span @click="clickType('age')">年龄</span></p>
+        <p><span>点击切换展示数据：</span></p>
+        <p class="menus">
+            <span class="common-btn" @click="clickType('score')">分数</span><span class="common-btn" @click="clickType('age')">年龄</span>
+        </p>
         <child :d="apiData1" :k="keys"></child>
     </div>
 </template>
@@ -51,4 +54,10 @@ export default {
 </script>
 
 <style lang="" scoped>
+.menus{
+    margin: 20px 0;
+}
+.menus span{
+    margin-right: 20px;
+}
 </style>

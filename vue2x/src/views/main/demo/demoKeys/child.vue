@@ -1,10 +1,10 @@
 <template>
     <div class="common-child-tpl">
-        <div v-for="(item,i) in arr" :key="i" class="common-tpl-box">
-            <span class="common-tpl-left">
+        <div v-for="(item,i) in arr" :key="i" class="common-box-left-right">
+            <span class="left">
                 {{item[keys.text]}}
             </span>
-            <span class="common-tpl-right">
+            <span class="right">
                 {{item[keys.value]}}
             </span>
         </div>

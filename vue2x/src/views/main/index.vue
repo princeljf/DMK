@@ -23,7 +23,7 @@ export default {
                     { text: 'HelloWorld', tpl: 'HelloWorld' },
                     { text: '子组件keys', tpl: 'demoKeys' },
                     { text: '表格例子', tpl: 'demoTable' },
-                    { text: '致谢', tpl: 'thanks' },
+                    // { text: '致谢', tpl: 'thanks' },
                 ],
                 click:(item,i,arr)=>{
                     this.component.tpl = arr[i].tpl;
@@ -60,8 +60,22 @@ export default {
 }
 
 .common-tpl-title{
+    color: #0099FF;
     margin-top: 30px;
     line-height: 60px;
     font-size: 20px;
+}
+.common-btn{
+    border-radius: 4px;
+    padding: 2px 15px;
+    background-color: #0099FF;
+    color: #fff;
+}
+.common-tpl-code p{
+    text-indent: 2em;
+    margin-bottom: 6px;
+}
+.common-tpl-code p.tip{
+    color: #aaa;
 }
 </style>
