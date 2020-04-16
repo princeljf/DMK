@@ -11,7 +11,7 @@
 
 <script>
 import commonMenus from './commonMenus';
-import {install, introduce, HelloWorld, thanks} from './demo.js';
+import {install, introduce, HelloWorld, demoKeys, demoTable, thanks} from './demo.js';
 export default {
     name: 'common-main-box',
     data() { 
@@ -21,8 +21,8 @@ export default {
                     { text: '安装', tpl: 'install' },
                     { text: '介绍', tpl: 'introduce' },
                     { text: 'HelloWorld', tpl: 'HelloWorld' },
-                    { text: '介绍', tpl: 'introduce' },
-                    { text: '介绍', tpl: 'introduce' },
+                    { text: '子组件keys', tpl: 'demoKeys' },
+                    { text: '表格例子', tpl: 'demoTable' },
                     { text: '致谢', tpl: 'thanks' },
                 ],
                 click:(item,i,arr)=>{
@@ -36,7 +36,7 @@ export default {
     },
     components:{ 
         commonMenus,
-        install, introduce, HelloWorld, thanks,
+        install, introduce, HelloWorld, demoKeys, demoTable, thanks,
     },
     created() { 
         

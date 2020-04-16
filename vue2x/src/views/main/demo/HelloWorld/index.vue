@@ -1,16 +1,15 @@
 <template>
     <div class="common-demo-tpl">
+        <h3>渲染结果</h3>
         <child :d="apiData1"></child>
         <child :d="apiData2" :k="keys2"></child>
         <child :d="apiData3"></child>
     </div>
 </template>
-
 <script>
 import child from './child'
 import DMK from 'dmk'
 export default {
-    name: 'common-demo-tpl',
     data() { 
         return {
             apiData1:[

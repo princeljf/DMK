@@ -1,25 +1,31 @@
 <template>
     <div class="common-child-tpl">
-        <div class="common-box-left-right" v-for="(item,i) in arr" :key="i">
-            <span class="left">{{item[ keys.text ]}}</span>
-            <span class="right">{{item[ keys.value ]}}</span>
+        <div v-for="(item,i) in arr" :key="i" class="common-tpl-box">
+            <span class="common-tpl-left">
+                {{item[keys.text]}}
+            </span>
+            <span class="common-tpl-right">
+                {{item[keys.value]}}
+            </span>
         </div>
     </div>
 </template>
+
 <script>
-import DMK from 'dmk';
+import DMK from 'dmk'
 export default {
     mixins: [DMK.mixins],
     data() { 
         return {
-            arr: [],
+            arr:[
+            ],
             keys:{
                 text: 'text',
                 value: 'value',
             },
         }
     },
-    created() { 
+    created(){
         DMK.init();
     },
 }

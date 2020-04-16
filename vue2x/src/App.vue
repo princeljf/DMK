@@ -18,6 +18,9 @@ html,body{
 h2{
   text-align: center;
 }
+h3{
+  margin-bottom: 20px;
+}
 #app{
   width: 100%;
   min-width: 320px;
@@ -39,6 +42,7 @@ h2{
 .common-demo-tpl{
   width: 200px;
   margin: 12px 0;
+  font-size: 14px;
 }
 .common-box-left-right{
   background-color: #eee;
