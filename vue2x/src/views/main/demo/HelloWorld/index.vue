@@ -4,14 +4,27 @@
         <child :d="apiData1"></child>
         <child :d="apiData2" :k="keys2"></child>
         <child :d="apiData3"></child>
+        <codemirror v-model="code"></codemirror>
     </div>
 </template>
 <script>
 import child from './child'
 import DMK from 'dmk'
+let code = `
+<template>
+    <div class="common-demo-tpl">
+        <h3>渲染结果</h3>
+        <child :d="apiData1"></child>
+        <child :d="apiData2" :k="keys2"></child>
+        <child :d="apiData3"></child>
+        <codemirror v-model="code"></codemirror>
+    </div>
+</template>
+`;
 export default {
     data() { 
         return {
+            code: code,
             apiData1:[
                 {text: '张三', value: 80},
                 {text: '李四', value: 58},

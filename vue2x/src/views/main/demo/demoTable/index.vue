@@ -55,7 +55,4 @@ export default {
 </script>
 
 <style lang="" scoped>
-.common-demo-tpl{
-    width: 100%;
-}
 </style>
