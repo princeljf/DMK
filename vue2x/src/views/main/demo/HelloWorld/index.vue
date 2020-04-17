@@ -1,30 +1,40 @@
 <template>
-    <div class="common-demo-tpl">
-        <h3>渲染结果</h3>
-        <child :d="apiData1"></child>
-        <child :d="apiData2" :k="keys2"></child>
-        <child :d="apiData3"></child>
-        <codemirror v-model="code"></codemirror>
+    <div class="common-main-tpl">
+        <h2>HelloWorld</h2>
+        <div class="common-demo-tpl">
+            <h3>渲染结果</h3>
+            <child :d="apiData1"></child>
+            <child :d="apiData2" :k="keys2"></child>
+            <child :d="apiData3"></child>
+            <h3 class="common-show-code">查看代码</h3>
+            <div class="common-code-box">
+                <span>index.vue</span>
+                <codemirror v-model="codeParent"></codemirror>
+                <span>child.vue</span>
+                <codemirror v-model="codeChild"></codemirror>
+            </div>
+        </div>
     </div>
 </template>
 <script>
 import child from './child'
 import DMK from 'dmk'
-let codeStr = `
+let codeParent = `
 <template>
     <div class="common-demo-tpl">
         <child :d="apiData1"></child>
         <child :d="apiData2" :k="keys2"></child>
         <child :d="apiData3"></child>
-        <codemirror v-model="code"></codemirror>
     </div>
 </template>
 
 <script>
+import child from './child'
+import DMK from 'dmk'
 export default {
     data() { 
         return {
-            code: codeStr,
+            code: codeParent,
             apiData1:[
                 {text: '张三', value: 80},
                 {text: '李四', value: 58},
@@ -56,10 +66,39 @@ export default {
 }
 <\/script>
 `;
+let codeChild = `
+<template>
+    <div class="common-child-tpl">
+        <div class="common-box-left-right" v-for="(item,i) in arr" :key="i">
+            <span class="left">{{item[ keys.text ]}}</span>
+            <span class="right">{{item[ keys.value ]}}</span>
+        </div>
+    </div>
+</template>
+<script>
+import DMK from 'dmk';
+export default {
+    mixins: [DMK.mixins],
+    data() { 
+        return {
+            arr: [],
+            keys:{
+                text: 'text',
+                value: 'value',
+            },
+        }
+    },
+    created() { 
+        DMK.init();
+    },
+}
+<\/script>
+`;
 export default {
     data() { 
         return {
-            code: codeStr,
+            codeParent: codeParent,
+            codeChild: codeChild,
             apiData1:[
                 {text: '张三', value: 80},
                 {text: '李四', value: 58},

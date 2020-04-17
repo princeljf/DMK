@@ -1,7 +1,10 @@
 <template>
-    <div class="common-demo-tpl">
-        <h3>渲染结果</h3>
-        <child :titles="{d:titleArr}" :datas="{d:apiData1, k:titleKeys}"></child>
+    <div class="common-main-tpl">
+        <h2>表格例子</h2>
+        <div class="common-demo-tpl">
+            <h3>渲染结果</h3>
+            <child :titles="{d:titleArr}" :datas="{d:apiData1, k:titleKeys}"></child>
+        </div>
     </div>
 </template>
 

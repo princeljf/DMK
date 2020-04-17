@@ -38,6 +38,16 @@ h3{
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
+.CodeMirror {
+    border: 1px solid #eee;
+    height: auto;
+}
+
+.CodeMirror-scroll {
+    height: auto;
+    overflow-y: hidden;
+    overflow-x: auto;
+}
 
 .common-demo-tpl{
   margin: 12px 0;

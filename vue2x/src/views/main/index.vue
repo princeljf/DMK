@@ -71,11 +71,20 @@ export default {
     background-color: #0099FF;
     color: #fff;
 }
+.common-tpl-code{
+}
 .common-tpl-code p{
     text-indent: 2em;
     margin-bottom: 6px;
 }
 .common-tpl-code p.tip{
     color: #aaa;
+}
+.common-show-code{
+    margin: 20px 0 0 0;
+    line-height: 60px;
+    border-top: 1px solid #eee;
+}
+.common-code-box{
 }
 </style>

@@ -26,4 +26,7 @@ export default {
 </script>
 
 <style lang="" scoped>
+.common-child-tpl{
+    margin-bottom: 6px;
+}
 </style>

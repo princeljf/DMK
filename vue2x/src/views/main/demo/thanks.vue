@@ -1,5 +1,5 @@
 <template>
-    <div class="common-thanks-tpl">
+    <div class="common-main-tpl">
         thanks
     </div>
 </template>

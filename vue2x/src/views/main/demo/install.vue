@@ -1,5 +1,5 @@
 <template>
-    <div class="common-install-tpl">
+    <div class="common-main-tpl">
         <h2>安装</h2>
         <div class="common-tpl-title">
             一、npm安装

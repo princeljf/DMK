@@ -1,5 +1,5 @@
 <template>
-    <div class="common-install-tpl">
+    <div class="common-main-tpl">
         <h2>介绍</h2>
         <div class="common-tpl-title">
             一、DMK 主要功能
