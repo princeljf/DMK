@@ -87,4 +87,7 @@ export default {
 }
 .common-code-box{
 }
+.common-child-tpl{
+    margin-bottom: 6px;
+}
 </style>

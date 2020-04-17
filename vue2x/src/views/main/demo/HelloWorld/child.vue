@@ -20,13 +20,10 @@ export default {
         }
     },
     created() { 
-        DMK.init();
+        DMK.init();//初始化mixins
     },
 }
 </script>
 
 <style lang="" scoped>
-.common-child-tpl{
-    margin-bottom: 6px;
-}
 </style>

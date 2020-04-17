@@ -8,9 +8,9 @@
             <child :d="apiData3"></child>
             <h3 class="common-show-code">查看代码</h3>
             <div class="common-code-box">
-                <span>index.vue</span>
+                <span>父组件：index.vue</span>
                 <codemirror v-model="codeParent"></codemirror>
-                <span>child.vue</span>
+                <span>子组件：child.vue</span>
                 <codemirror v-model="codeChild"></codemirror>
             </div>
         </div>
@@ -89,7 +89,7 @@ export default {
         }
     },
     created() { 
-        DMK.init();
+        DMK.init();//初始化mixins
     },
 }
 <\/script>
