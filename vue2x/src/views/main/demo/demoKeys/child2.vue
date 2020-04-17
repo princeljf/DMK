@@ -1,12 +1,16 @@
 <template>
     <div class="common-child-tpl">
-        <div v-for="(item,i) in arr" :key="i" class="common-box-left-right">
-            <span class="left">{{item[ keys.text ]}}</span>
-            <span class="right">{{item[ keys.value ]}}</span>
+        <div class="box">
+            <div v-for="(item,i) in arr" :key="i" class="common-box-left-right">
+                <span class="left">{{item[ keys.text ]}}</span>
+                <span class="right">{{item[ keys.value ]}}</span>
+            </div>
         </div>
-        <div v-for="(item,i) in deepObj.arr" :key="i" class="common-box-left-right">
-            <span class="left">{{item[ deepObj.keys.text ]}}</span>
-            <span class="right">{{item[ deepObj.keys.value ]}}</span>
+        <div class="box">
+            <div v-for="(item,i) in deepObj.arr" :key="i" class="common-box-left-right">
+                <span class="left">{{item[ deepObj.keys.text ]}}</span>
+                <span class="right">{{item[ deepObj.keys.value ]}}</span>
+            </div>
         </div>
     </div>
 </template>

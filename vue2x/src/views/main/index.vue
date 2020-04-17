@@ -22,8 +22,8 @@ export default {
                     { text: '介绍', tpl: 'introduce' },
                     { text: 'HelloWorld', tpl: 'HelloWorld' },
                     { text: '子组件keys', tpl: 'demoKeys' },
-                    { text: '表格例子', tpl: 'demoTable' },
-                    // { text: '致谢', tpl: 'thanks' },
+                    { text: '动态表格监听', tpl: 'demoTable' },
+                    { text: '致谢', tpl: 'thanks' },
                 ],
                 click:(item,i,arr)=>{
                     this.component.tpl = arr[i].tpl;
@@ -50,13 +50,13 @@ export default {
     padding: 0 15px;
     position: absolute;
     z-index: 99;
-    width: 120px;
+    width: 150px;
     border-right: 1px solid #ccc;
     text-align: right;
 }
 .common-main-box .right-box{
     box-sizing: border-box;
-    padding: 0 15px 0 135px;
+    padding: 0 15px 0 165px;
 }
 
 .common-tpl-title{

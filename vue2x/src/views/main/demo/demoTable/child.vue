@@ -6,13 +6,12 @@
                     {{item[keys.title]}}
                 </th>
             </tr>
-            <tr v-for="(data,i) in tableArr" :key="i">
-                <td v-for="(obj, index) in titleArr" :key="index">{{data[ obj[keys.key] ]}}</td>
+            <tr v-for="(item,i) in tableArr" :key="i">
+                <td v-for="(obj, index) in titleArr" :key="index">{{item[ obj[keys.key] ]}}</td>
             </tr>
         </table>
     </div>
 </template>
-
 <script>
 import DMK from 'dmk'
 export default {
@@ -25,8 +24,12 @@ export default {
                 title: 'title',
                 key: 'key'
             },
-            keys2: this.initKeys()
-
+            // keys2: this.initKeys(),//动态keys请使用computed或者props处理
+        }
+    },
+    computed: {
+        keys2(){
+            return this.initKeys();
         }
     },
     created(){

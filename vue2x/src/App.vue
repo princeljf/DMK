@@ -34,7 +34,7 @@ h3{
   max-width: 760px;
   min-height: 100%;
   margin: 0 auto;
-  padding: 30px;
+  padding: 30px 0;
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
 }
