@@ -1,6 +1,6 @@
 <template>
     <div class="common-main-tpl">
-        <h2>动态表格监听</h2>
+        <h2>动态表格监听</h2>
         <div class="common-demo-tpl">
             <h3>渲染结果</h3>
             <p><span @click="clickBtn('add')" class="common-btn">增加一列</span><span @click="clickBtn('del')" class="common-btn">删除一列</span></p>
