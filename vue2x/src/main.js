@@ -4,6 +4,10 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
+import DMK from 'dmk';
+Vue.mixin(DMK.mixins);//全局注册mixins
+Vue.prototype.$DMK = DMK;
+
 import VueCodeMirror from 'vue-codemirror'
 // require styles
 import 'codemirror/lib/codemirror.css'

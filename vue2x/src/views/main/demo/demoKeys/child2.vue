@@ -15,9 +15,7 @@
     </div>
 </template>
 <script>
-import DMK from 'dmk'
 export default {
-    mixins: [DMK.mixins],
     data() { 
         return {
             arr:[
@@ -38,7 +36,7 @@ export default {
     },
     created(){
         //支持点语法，但必须指定key用于绑定父组件传参
-        DMK.init(['arr', {arr2:'deepObj.arr'}], {
+        this.$DMK.init(['arr', {arr2:'deepObj.arr'}], {
             ckMapOpt:{
                 arr: 'keys',//默认值绑定this.keys，可不传
                 arr2: 'deepObj.keys',//指定另一个keys绑定源

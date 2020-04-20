@@ -6,44 +6,64 @@
         </div>
         <div class="common-tpl-code">
             <code>
-                $ npm install dmk
+                $ npm install dmk --save
             </code>
         </div>
         <div class="common-tpl-title">
-            二、组件引入
+            二、全局引入
         </div>
         <div class="common-tpl-code">
-            <code>
-                import DMK from 'dmk';
-            </code>
+            <codemirror v-model="codeParent" :options="{mode: 'javascript'}"></codemirror>
         </div>
         <div class="common-tpl-title">
-            三、注册DMK.mixins和初始化mixins
+            三、组件引入
         </div>
         <div class="common-tpl-code">
-            <code>
-                <p>注册: mixins: [DMK.mixins]</p>
-                <p>初始化：建议在created钩子函数中调用 DMK.init()</p>
-            </code>
+            <codemirror v-model="codeChild" :options="{mode: 'javascript'}"></codemirror>
         </div>
         <div class="common-tpl-title">
             四、使用DMK.get()处理数据函数
         </div>
         <div class="common-tpl-code">
-            <code>
-                let arr = DMK.get(datas, maps2keys);
-            </code>
+            <codemirror v-model="codeGet" :options="{mode: 'javascript'}"></codemirror>
         </div>
     </div>
 </template>
 
 <script>
-import DMK from 'dmk';
+
+const codeParent = `
+//入口文件：main.js
+
+Vue.mixin(DMK.mixins);//全局注册mixins
+Vue.prototype.$DMK = DMK;//全局挂载DMK
+//组件在created钩子初始化使用mixins
+this.$DMK.init();
+`;
+const codeChild = `
+//子组件
 export default {
-    mixins: [DMK.mixins],
+    data() { 
+        return {
+            arr: [],
+        }
+    },
+    created() { 
+        this.$DMK.init('arr');//初始化mixins绑定this.arr
+    },
+}
+`;
+const codeGet = `
+let arr = DMK.get(arr2obj, maps2keys);
+`;
+export default {
+    
     name: 'common-install-tpl',
     data() { 
         return {
+            codeParent: codeParent,
+            codeChild: codeChild,
+            codeGet: codeGet,
             arr: [],
             keys:{
                 text: 'text'
@@ -54,7 +74,7 @@ export default {
         
     },
     created() { 
-        DMK.init();
+        this.$DMK.init();
     },
 }
 </script>

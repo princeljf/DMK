@@ -18,7 +18,7 @@
 </template>
 <script>
 import child from './child'
-import DMK from 'dmk'
+
 let codeParent = `
 <template>
     <div class="common-demo-tpl">
@@ -27,10 +27,8 @@ let codeParent = `
         <child :d="apiData3"></child>
     </div>
 </template>
-
 <script>
 import child from './child'
-import DMK from 'dmk'
 export default {
     data() { 
         return {
@@ -76,9 +74,9 @@ let codeChild = `
     </div>
 </template>
 <script>
-import DMK from 'dmk';
+
 export default {
-    mixins: [DMK.mixins],
+    
     data() { 
         return {
             arr: [],
@@ -89,7 +87,7 @@ export default {
         }
     },
     created() { 
-        DMK.init();//初始化mixins
+        this.$DMK.init();//初始化mixins
     },
 }
 <\/script>

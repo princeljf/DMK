@@ -7,9 +7,7 @@
     </div>
 </template>
 <script>
-import DMK from 'dmk';
 export default {
-    mixins: [DMK.mixins],
     data() { 
         return {
             arr: [],
@@ -20,7 +18,7 @@ export default {
         }
     },
     created() { 
-        DMK.init();//初始化mixins
+        this.$DMK.init();//初始化mixins
     },
 }
 </script>

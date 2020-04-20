@@ -7,9 +7,7 @@
     </div>
 </template>
 <script>
-import DMK from 'dmk'
 export default {
-    mixins: [DMK.mixins],
     data() { 
         return {
             arr:[
@@ -21,7 +19,7 @@ export default {
         }
     },
     created(){
-        DMK.init();//等价于DMK.init('arr') 或 DMK.init({arr:'arr'})
+        this.$DMK.init();//等价于this.$DMK.init('arr') 或 this.$DMK.init({arr:'arr'})
     },
 }
 </script>

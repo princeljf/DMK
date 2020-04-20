@@ -13,9 +13,7 @@
     </div>
 </template>
 <script>
-import DMK from 'dmk'
 export default {
-    mixins: [DMK.mixins],
     data() { 
         return {
             titleArr:[],//表头
@@ -33,7 +31,7 @@ export default {
         }
     },
     created(){
-        DMK.init([{titles: 'titleArr'}, {datas: 'tableArr'}],{
+        this.$DMK.init([{titles: 'titleArr'}, {datas: 'tableArr'}],{
             ckMapOpt:{
                 datas: 'keys2'
             }
