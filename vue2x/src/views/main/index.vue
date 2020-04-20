@@ -22,7 +22,7 @@ export default {
                     { text: '介绍', tpl: 'introduce' },
                     { text: 'HelloWorld', tpl: 'HelloWorld' },
                     { text: '子组件keys', tpl: 'demoKeys' },
-                    { text: '动态表格监听', tpl: 'demoTable' },
+                    { text: '动态表格监听', tpl: 'demoTable' },
                     { text: '致谢', tpl: 'thanks' },
                 ],
                 click:(item,i,arr)=>{
