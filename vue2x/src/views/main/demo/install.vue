@@ -42,14 +42,16 @@ this.$DMK.init();
 `;
 const codeChild = `
 //子组件
+import DMK from 'dmk'
 export default {
+    mixins: [DMK.mixins],
     data() { 
         return {
             arr: [],
         }
     },
     created() { 
-        this.$DMK.init('arr');//初始化mixins绑定this.arr
+        DMK.init('arr');//初始化mixins绑定this.arr
     },
 }
 `;
