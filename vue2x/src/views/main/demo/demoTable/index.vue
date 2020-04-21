@@ -109,8 +109,16 @@ export default {
                 title: 'title',
                 key: 'key'
             },
-            // keys2: this.initKeys(),//动态keys请使用computed或者props处理
+            //动态keys请使用computed或者watch或者props处理
+            // keys2: this.initKeys(),
         }
+    },
+    watch: {
+        // '$attrs.titles':function(){
+        //     //mixins监听完成，后执行此watch，所以tableArr没有新增列数据
+        //     this.keys2 = this.initKeys();
+        //     this.$DMK.update();//使用update方法更新数据
+        // }
     },
     computed: {
         keys2(){

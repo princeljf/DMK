@@ -182,16 +182,14 @@ var dataMapsKeysMixins = {
     watch: {
         '$attrs': {
             handler: function handler(newVal, oldVal) {
-                var ip = this.dmk_mixins_option.inputParams;
-                ip.bindKey && this._DMK_(ip.bindKey, ip.option);
+                this._updateDMK_();
             },
 
             deep: true
         },
         '_props': {
             handler: function handler(newVal, oldVal) {
-                var ip = this.dmk_mixins_option.inputParams;
-                ip.bindKey && this._DMK_(ip.bindKey, ip.option);
+                this._updateDMK_();
             },
 
             deep: true
@@ -202,6 +200,11 @@ var dataMapsKeysMixins = {
     },
 
     methods: {
+        _updateDMK_: function _updateDMK_(callback) {
+            var ip = this.dmk_mixins_option.inputParams;
+            ip.bindKey && this._DMK_(ip.bindKey, ip.option) && _LHH2.default.isFunction(callback) && callback();
+        },
+
         //组件初始化，使用此mixins必需调用，建议在created方法里执行：this._DMK_();
         _DMK_: function _DMK_() {
             var _this = this;
@@ -375,12 +378,17 @@ var DMK = function (LHH) {
         var bindKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'arr';
         var option = arguments[1];
 
-        dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.vm2parent, bindKey, option);
+        return dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.vm2parent, bindKey, option);
     }; //END -> DMK.init()
-    //初始化mixins方法
+
+    //设置 DEF_OPT 全局配置项方法
     returnObj.prototype.setOption = function (option) {
         return setDefOpt(option);
-    }; //END -> DMK.init()
+    }; //END -> DMK.setOption()
+
+    returnObj.prototype.update = function (callback) {
+        return dataMapsKeysMixins.methods._updateDMK_.call(dataMapsKeysMixins.vm2parent, callback);
+    }; //END -> DMK.setOption()
 
     return new returnObj();
 }(_LHH2.default);
