@@ -10,7 +10,7 @@ var _LHH2 = _interopRequireDefault(_LHH);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-//全局常量
+//全局配置项
 var DEF_OPT = {
     dmkMapOpt: {
         d: '$attrs.d',
@@ -23,6 +23,19 @@ var DEF_OPT = {
         'undefined': '', //值为undefined时，转换为设置的值
         'null': '' //值为null时，转换为设置的值
     }
+};
+var DEF_OPT_COPY = _LHH2.default.extend(true, DEF_OPT); //全局配置项副本
+//设置全局默认配置
+var setDefOpt = function setDefOpt(option) {
+    var opt = option;
+    if (opt == 'reset') {
+        opt = DEF_OPT = _LHH2.default.extend(true, DEF_OPT_COPY); //还原默认配置
+    } else if (_LHH2.default.isObject(opt)) {
+        opt = _LHH2.default.extend(true, DEF_OPT, opt); //覆盖配置
+    } else {
+        opt = false; //失败
+    }
+    return opt;
 };
 //分割点'.'数据处理：keys.k1.0.k2，支持点语法，数组直接用下标表示，暂不支持中括号'[]'形式：keys.k1[0]k2，不存在的key默认值返回为空字符串：return = ''
 var get_deepData = function get_deepData(data, splitStr, option, defOption) {
@@ -363,6 +376,10 @@ var DMK = function (LHH) {
         var option = arguments[1];
 
         dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.vm2parent, bindKey, option);
+    }; //END -> DMK.init()
+    //初始化mixins方法
+    returnObj.prototype.setOption = function (option) {
+        return setDefOpt(option);
     }; //END -> DMK.init()
 
     return new returnObj();

@@ -1,5 +1,11 @@
 # DMK.js（dataMapsKeysMixins）for Vue mixins
 
+### DMK v2版本重构，最新文档更新中。。。建议git拉取完整代码查看，谢谢！
+1. git clone https://github.com/princeljf/DMK.git
+2. cd DMK/vue2
+3. npm install
+4. npm run dev
+
 ### DMK v2.0.0主要功能：
 1. 数据处理和数据转换
 2. 通过参数配置驱动数据映射
