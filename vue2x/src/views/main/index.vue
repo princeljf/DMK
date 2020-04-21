@@ -11,13 +11,14 @@
 
 <script>
 import commonMenus from './commonMenus';
-import {install, introduce, HelloWorld, demoKeys, demoTable, thanks} from './demo.js';
+import {test, install, introduce, HelloWorld, demoKeys, demoTable, thanks} from './demo.js';
 export default {
     name: 'common-main-box',
     data() { 
         return {
             munus:{
                 arr: [
+                    { text: 'test', tpl: 'test' },
                     { text: '安装', tpl: 'install' },
                     { text: '介绍', tpl: 'introduce' },
                     { text: 'HelloWorld', tpl: 'HelloWorld' },
@@ -30,13 +31,14 @@ export default {
                 },
             },
             component:{
-                tpl: 'install'
+                tpl: 'test',
+                // tpl: 'install',
             }
         }
     },
     components:{ 
         commonMenus,
-        install, introduce, HelloWorld, demoKeys, demoTable, thanks,
+        test, install, introduce, HelloWorld, demoKeys, demoTable, thanks,
     },
     created() { 
         

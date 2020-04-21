@@ -102,7 +102,7 @@ const dataMapsKeysMixins = {
                 'm':'$attrs.m', 
                 'k':'$attrs.k',
                 'childKeys':'keys', //子组件绑定模板的数据源，默认为this.keys：支持$data.keys或者$props.keys形式
-                'epmty':'',         //值为空字符串''时，转换为设置的值
+                'empty':'',         //值为空字符串''时，转换为设置的值
                 'undefined':'',     //值为undefined时，转换为设置的值
                 'null':'',          //值为null时，转换为设置的值
             }

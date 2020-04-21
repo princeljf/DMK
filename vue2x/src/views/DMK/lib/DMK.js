@@ -1,6 +1,6 @@
 import LHH from './LHH.js';
-//全局常量
-const DEF_OPT = {
+//全局配置项
+let DEF_OPT = {
     dmkMapOpt:{
         d:'$attrs.d',     
         m:'$attrs.m', 
@@ -8,10 +8,23 @@ const DEF_OPT = {
         ck: 'keys', //子组件绑定模板的数据源，默认为this.keys：支持$data.keys或者$props.keys形式
     },
     valMapOpt:{
-        'epmty':'',         //值为空字符串''时，转换为设置的值
+        'empty':'',         //值为空字符串''时，转换为设置的值
         'undefined':'',     //值为undefined时，转换为设置的值
         'null':'',          //值为null时，转换为设置的值
     }
+};
+const DEF_OPT_COPY = LHH.extend(true, DEF_OPT);//全局配置项副本
+//设置全局默认配置
+const setDefOpt = (option)=>{
+    let opt = option;
+    if(opt=='reset'){
+        opt = DEF_OPT = LHH.extend(true, DEF_OPT_COPY)//还原默认配置
+    }else if(LHH.isObject(opt)){
+        opt = LHH.extend(true, DEF_OPT, opt);//覆盖配置
+    }else{
+        opt = false;//失败
+    }
+    return opt;
 };
 //分割点'.'数据处理：keys.k1.0.k2，支持点语法，数组直接用下标表示，暂不支持中括号'[]'形式：keys.k1[0]k2，不存在的key默认值返回为空字符串：return = ''
 const get_deepData = (data, splitStr, option, defOption)=>{
@@ -314,6 +327,10 @@ const DMK = ((LHH)=>{
     //初始化mixins方法
     returnObj.prototype.init = (bindKey='arr', option)=>{
         dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.vm2parent, bindKey, option);
+    };//END -> DMK.init()
+    //初始化mixins方法
+    returnObj.prototype.setOption = (option)=>{
+        return setDefOpt(option);
     };//END -> DMK.init()
 
     return new returnObj();

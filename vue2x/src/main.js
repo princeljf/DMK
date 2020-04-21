@@ -6,7 +6,7 @@ import router from './router'
 
 import DMK from 'dmk';
 Vue.mixin(DMK.mixins);//全局注册mixins
-Vue.prototype.$DMK = DMK;
+Vue.prototype.$DMK = DMK;//全局挂载DMK
 
 import VueCodeMirror from 'vue-codemirror'
 // require styles
