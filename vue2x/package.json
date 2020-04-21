@@ -12,8 +12,9 @@
   },
   "dependencies": {
     "babel-runtime": "^6.26.0",
+    "codemirror": "^5.53.0",
     "css-loader": "^3.0.0",
-    "dmk": "^2.0.1",
+    "dmk": "^2.0.3",
     "vue": "^2.5.2",
     "vue-codemirror": "^4.0.6",
     "vue-router": "^3.0.1",
