@@ -34,7 +34,6 @@
 
 const codeParent = `
 //入口文件：main.js
-
 Vue.mixin(DMK.mixins);//全局注册mixins
 Vue.prototype.$DMK = DMK;//全局挂载DMK
 //组件在created钩子初始化使用mixins
