@@ -2,7 +2,7 @@
 
 ### DMK v2版本重构，最新文档更新中。。。建议git拉取完整代码查看，谢谢！
 1. git clone https://github.com/princeljf/DMK.git
-2. cd DMK/vue2
+2. cd DMK/vue2x
 3. npm install
 4. npm run dev
 
