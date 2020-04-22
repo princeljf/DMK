@@ -4,7 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 
-import DMK from 'dmk';
+import DMK from '@/views/DMK/lib/DMK.js';//开发模式
+// import DMK from 'dmk';//测试模式
 Vue.mixin(DMK.mixins);//全局注册mixins
 Vue.prototype.$DMK = DMK;//全局挂载DMK
 

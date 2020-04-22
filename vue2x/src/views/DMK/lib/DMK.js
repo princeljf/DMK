@@ -178,7 +178,11 @@ const dataMapsKeysMixins = {
     methods:{
         _updateDMK_(callback){
             let ip = this.dmk_mixins_option.inputParams;
-            ip.bindKey && this._DMK_(ip.bindKey, ip.option) && LHH.isFunction(callback) && callback();
+            ip.bindKey && this._DMK_(ip.bindKey, ip.option) && LHH.isFunction(callback) && setTimeout(()=>{
+                this.$nextTick(()=>{
+                    callback();
+                });
+            },1);
         },
         //组件初始化，使用此mixins必需调用，建议在created方法里执行：this._DMK_();
         _DMK_(bindKey='arr', option={}){
@@ -336,8 +340,13 @@ const DMK = ((LHH)=>{
         return setDefOpt(option);
     };//END -> DMK.setOption()
 
-    returnObj.prototype.update = (callback)=>{
-        return dataMapsKeysMixins.methods._updateDMK_.call(dataMapsKeysMixins.vm2parent, callback);
+    returnObj.prototype.update = (callback, context)=>{
+        let cb=callback, ct=context;
+        if(!LHH.isFunction(callback)){
+            ct = callback;
+            cb = context;
+        }
+        return dataMapsKeysMixins.methods._updateDMK_.call(ct || dataMapsKeysMixins.vm2parent, cb);
     };//END -> DMK.setOption()
 
     return new returnObj();

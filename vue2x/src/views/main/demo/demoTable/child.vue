@@ -22,7 +22,7 @@ export default {
                 title: 'title',
                 key: 'key'
             },
-            //动态keys请使用computed或者watch或者props处理
+            //动态keys建议使用computed，也可使用watch和props
             // keys2: this.initKeys(),
         }
     },
@@ -30,7 +30,8 @@ export default {
         // '$attrs.titles':function(){
         //     //mixins监听完成，后执行此watch，所以tableArr没有新增列数据
         //     this.keys2 = this.initKeys();
-        //     this.$DMK.update();//使用update方法更新数据
+        //     //强制更新：全局注册需传递实例对象this，否则更新的为最后一个绑定的实例对象
+        //     this.$DMK.update(this);//使用update方法更新数据
         // }
     },
     computed: {
