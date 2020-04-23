@@ -136,7 +136,11 @@ const get_dmkMapOpt = (mapKey='', inputParams)=>{
 };
 
 const dataMapsKeysMixins = {
-    vm2parent: null,
+    dmkMixinsSelf:{
+        vm2parent: null,//指向组件实例
+        setOptionLock: 0, //判断全局配置是否设置过
+        warn: true,
+    },
     name: 'dataMapsKeysMixins',
     data(){
         return {
@@ -255,7 +259,7 @@ const dataMapsKeysMixins = {
         },
     },
     beforeCreate(){
-        dataMapsKeysMixins.vm2parent = this;//注意：全局注册，this更新为最后一个组件实例
+        dataMapsKeysMixins.dmkMixinsSelf.vm2parent = this;//注意：全局注册，this更新为最后一个组件实例
     },
     methods:{
         //dmk内部主函数：组件初始化，使用此mixins必需调用，建议在created方法里执行：DMK.init();
@@ -337,12 +341,21 @@ const DMK = ((LHH)=>{
 
     //初始化mixins方法
     returnObj.prototype.init = (bindKey='arr', option)=>{
-        return dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.vm2parent, bindKey, option);
+        return dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.dmkMixinsSelf.vm2parent, bindKey, option);
     };//END -> DMK.init()
     
     //设置 DEF_OPT 全局配置项方法
-    returnObj.prototype.setOption = (option)=>{
-        return setDefOpt(option);
+    returnObj.prototype.setOption = (option, isForceUpdate)=>{
+        let obj = dataMapsKeysMixins.dmkMixinsSelf;
+        let result = false;
+        if(!obj.setOptionLock || isForceUpdate){
+            obj.setOptionLock && obj.warn && console.log('warn: 正在多次修改全局配置项，请确认已了解风险！');
+            result = setDefOpt(option);
+            result && (obj.setOptionLock++);
+        }else{
+            obj.warn && console.log('warn: 请勿重复设置全局配置项，建议组件传参覆盖！(若已了解风险，可传递第二个参数强制覆盖)');
+        }
+        return result;
     };//END -> DMK.setOption()
 
     returnObj.prototype.update = (callback, context)=>{
@@ -351,7 +364,7 @@ const DMK = ((LHH)=>{
             ct = callback;
             cb = context;
         }
-        return dataMapsKeysMixins.dmk_mixins_data_.fn.update.call(ct || dataMapsKeysMixins.vm2parent, cb);
+        return dataMapsKeysMixins.dmk_mixins_data_.fn.update.call(ct || dataMapsKeysMixins.dmkMixinsSelf.vm2parent, cb);
     };//END -> DMK.setOption()
 
     return new returnObj();

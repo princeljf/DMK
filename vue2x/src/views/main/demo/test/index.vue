@@ -9,7 +9,6 @@
     </div>
 </template>
 <script>
-import DMK from '@/views/DMK/lib/DMK.js';
 import child from './child'
 import dateUtil from '@/util/dateUtil.js'
 export default {
