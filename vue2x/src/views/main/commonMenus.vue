@@ -7,9 +7,7 @@
 </template>
 
 <script>
-import DMK from 'dmk';
 export default {
-    mixins: [DMK.mixins],
     name: 'common-menus-tpl',
     data() { 
         return {
@@ -19,11 +17,8 @@ export default {
             },
         }
     },
-    components:{ 
-        
-    },
     created() { 
-        DMK.init();
+        this.$DMK.init();
     },
 }
 </script>
