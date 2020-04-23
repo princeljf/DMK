@@ -44,7 +44,7 @@ export default {
         DMK.init([{titles: 'titleArr'}, {datas: 'tableArr'}],{
             ckMapOpt:{
                 datas: 'keys2'
-            }
+            },
         });
     },
     methods:{

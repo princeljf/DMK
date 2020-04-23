@@ -8,8 +8,6 @@ import DMK from '@/views/DMK/lib/DMK.js';//开发模式
 // import DMK from 'dmk';//测试模式
 Vue.mixin(DMK.mixins);//全局注册mixins
 Vue.prototype.$DMK = DMK;//全局挂载DMK
-DMK.setOption({});
-
 import VueCodeMirror from 'vue-codemirror'
 // require styles
 import 'codemirror/lib/codemirror.css'

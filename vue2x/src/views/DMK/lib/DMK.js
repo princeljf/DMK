@@ -156,7 +156,7 @@ const dataMapsKeysMixins = {
                     mapAttrs: [],
                     bindKeys: [],
                     childKeys:[],
-                    valMapOpt: null,
+                    valMapOpt: {},
                     datas:{
 
                     },
@@ -194,12 +194,13 @@ const dataMapsKeysMixins = {
                             });
                         }
                     },
-                    setValMapOpt: (option)=>{
-                        let opt = LHH.isObject(option) ? option : {};
-                        let defOpt = this.dmk_mixins_data_.outputData.valMapOpt;
-                        for(let k in defOpt){
-                            k instanceof opt && (defOpt[k] = opt[k]);
-                        }
+                    setValMapOpt: ()=>{
+                        //配置项优先级：全局setOption < 子组件init < 父组件:option < 指定项maps2keys
+                        let defOpt = DEF_OPT.valMapOpt;
+                        let ip = this.dmk_mixins_data_.inputParams;
+                        let inputOpt = LHH.isObject(ip.option) ? ip.option.valMapOpt : {};
+                        let attrsOpt = LHH.isObject(this.$attrs.option) ? this.$attrs.option : {};
+                        LHH.extend(this.dmk_mixins_data_.outputData.valMapOpt, defOpt, inputOpt, attrsOpt.valMapOpt);
                     },
                     setInputOption: (option)=>{
                         let outputObj = this.dmk_mixins_data_.outputData;
