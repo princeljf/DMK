@@ -158,6 +158,7 @@ const dataMapsKeysMixins = {
                     },
                 },
                 fn:{
+                    //更新函数
                     update: (callback)=>{
                         let ip = this.dmk_mixins_data_.inputParams;
                         ip.bindKey && this._DMK_(ip.bindKey, ip.option) && LHH.isFunction(callback) && setTimeout(()=>{
@@ -257,7 +258,7 @@ const dataMapsKeysMixins = {
         dataMapsKeysMixins.vm2parent = this;//注意：全局注册，this更新为最后一个组件实例
     },
     methods:{
-        //dmk内部主函数：组件初始化，使用此mixins必需调用，建议在created方法里执行：this._DMK_();
+        //dmk内部主函数：组件初始化，使用此mixins必需调用，建议在created方法里执行：DMK.init();
         _DMK_(bindKey='arr', option={}){
             this.dmk_mixins_data_.inputParams.bindKey = bindKey;
             this.dmk_mixins_data_.inputParams.option = option;
@@ -303,7 +304,7 @@ const DMK = ((LHH)=>{
      * import DMK from 'DMK';
      * let arr = DMK.get(obj2arr, maps2keys);
      * **/
-    returnObj.prototype.get = (obj2arr, maps2keys)=>{
+    returnObj.prototype.get = (obj2arr, maps2keys, isReturnObject)=>{
         //校验第一个参数是否为对象或者数组，否则无需转换直接返回false
         if(!LHH.isObject(obj2arr) && !LHH.isArray(obj2arr)){ console.log('warn: The first parameter type is not "Object or Array", return false.'); return false; }
         let arr = [];
@@ -328,7 +329,7 @@ const DMK = ((LHH)=>{
                 });
             }else if(LHH.isObject(k)){
                 //data={}, keys={}
-                arr = get_d2array([d], k);//数组：data或者data+keys处理数据格式
+                arr = isReturnObject ? get_d2object(d, k, init_keys2childKeys(k), d, 0) : get_d2array([d], k);//数组：data或者data+keys处理数据格式
             }
         }
         return arr;
