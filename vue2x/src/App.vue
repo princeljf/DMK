@@ -11,7 +11,7 @@ export default {
 </script>
 
 <style>
-*{ margin: 0; padding: 0; }
+*{ margin: 0; padding: 0; font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif;}
 html,body{
   height: 100%;
 }
@@ -26,6 +26,33 @@ h3{
   min-width: 320px;
   height: 100%;
   margin: 0 auto;
+}
+.fw-bold{
+  font-weight: bold;
+}
+.col-red{
+  color: red;
+}
+.common-table-params{
+  width: 100%;
+  font-size: 14px;
+  border-collapse:collapse;
+  text-align: left;
+}
+.common-table-params th,
+.common-table-params td{
+  border: 1px solid #666;
+  padding: 2px 6px;
+}
+.common-table-params th{
+  color: #0099ff;
+  font-weight: bold;
+  line-height: 32px;
+}
+.common-step-title{
+  line-height: 32px;
+  color: #0099ff;
+  font-size: 16px;
 }
 .common-main-box{
   position: relative;

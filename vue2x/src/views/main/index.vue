@@ -11,7 +11,7 @@
 
 <script>
 import commonMenus from './commonMenus';
-import {test, install, introduce, HelloWorld, demoKeys, demoTable, thanks} from './demo.js';
+import {test, install, introduce, HelloWorld,demoStep, demoKeys, demoTable, thanks} from './demo.js';
 export default {
     name: 'common-main-box',
     data() { 
@@ -22,6 +22,7 @@ export default {
                     { text: '安装', tpl: 'install' },
                     { text: '介绍', tpl: 'introduce' },
                     { text: 'HelloWorld', tpl: 'HelloWorld' },
+                    { text: '起步', tpl: 'demoStep' },
                     { text: '子组件keys', tpl: 'demoKeys' },
                     { text: '动态表格监听', tpl: 'demoTable' },
                     { text: '致谢', tpl: 'thanks' },
@@ -31,14 +32,14 @@ export default {
                 },
             },
             component:{
-                tpl: 'test',
+                tpl: 'demoStep',
                 // tpl: 'install',
             }
         }
     },
     components:{ 
         commonMenus,
-        test, install, introduce, HelloWorld, demoKeys, demoTable, thanks,
+        test, install, introduce, HelloWorld, demoStep, demoKeys, demoTable, thanks,
     },
     created() { 
         
@@ -88,6 +89,7 @@ export default {
     border-top: 1px solid #eee;
 }
 .common-code-box{
+    margin: 6px 0;
 }
 .common-child-tpl{
     margin-bottom: 6px;

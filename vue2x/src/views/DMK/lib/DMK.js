@@ -71,16 +71,21 @@ const get_d2object = (d, k, ck, item, i, valMapOpt)=>{
     let obj = {};
     for(let ckey in ck){
         let kkey = k[ckey];
-        //处理对象，默认key映射为defalut的值
-        if( LHH.isObject(kkey) ){
-            kkey = kkey.default || '';
-        }
-        if(!kkey){ 
-            console.warn('Keys or Maps is empty.'); 
-        }else if( LHH.isFunction(kkey) ){
-            obj[ ck[ckey] ] = kkey( LHH.extend({},item), i, d );
+        //当映射值为字符串且不存在点语法且  映射值不包含于数据源中，直接返回当前值
+        if( !kkey || (LHH.isString(kkey) && kkey.indexOf('\.')==-1 && !(kkey in item)) ){
+            obj[ ck[ckey] ] = kkey;
         }else{
-            obj[ ck[ckey] ] = get_deepData( LHH.extend({},item), kkey, k[ckey], valMapOpt );
+            //处理对象，默认key映射为defalut的值
+            if( LHH.isObject(kkey) ){
+                kkey = kkey.default || '';
+            }
+            if(!kkey){ 
+                console.warn('Keys or Maps is empty.'); 
+            }else if( LHH.isFunction(kkey) ){
+                obj[ ck[ckey] ] = kkey( LHH.extend({},item), i, d );
+            }else{
+                obj[ ck[ckey] ] = get_deepData( LHH.extend({},item), kkey, k[ckey], valMapOpt );
+            }
         }
     }
     return obj;

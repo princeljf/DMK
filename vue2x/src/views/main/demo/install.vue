@@ -77,7 +77,7 @@ const codeGet = `
 let arr = DMK.get(arr2obj, maps2keys);
 //支持三种参数形式
 let arr1 = DMK.get([], {});//数组+对象
-let arr2 = DMK.get({}, {});//对象+对象
+let arr2 = DMK.get({}, {});//对象+对象：let obj = DMK.get({}, {}, true);//返回对象
 let arr3 = DMK.get({}, []);//对象+数组
 `;
 export default {
