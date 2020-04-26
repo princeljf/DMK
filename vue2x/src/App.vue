@@ -33,6 +33,12 @@ h3{
 .col-red{
   color: red;
 }
+.ti2em{
+  text-indent: 2em;
+}
+.common-text-params{
+  color: #666;
+}
 .common-table-params{
   width: 100%;
   font-size: 14px;

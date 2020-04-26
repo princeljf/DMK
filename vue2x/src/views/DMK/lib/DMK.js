@@ -72,7 +72,8 @@ const get_d2object = (d, k, ck, item, i, valMapOpt)=>{
     for(let ckey in ck){
         let kkey = k[ckey];
         //当映射值为字符串且不存在点语法且  映射值不包含于数据源中，直接返回当前值
-        if( !kkey || (LHH.isString(kkey) && kkey.indexOf('\.')==-1 && !(kkey in item)) ){
+        
+        if( !kkey || (LHH.isString(kkey) && !/.\../.test(kkey) && !(kkey in item)) ){
             obj[ ck[ckey] ] = kkey;
         }else{
             //处理对象，默认key映射为defalut的值

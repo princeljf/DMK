@@ -94,8 +94,19 @@ let keys2={
             </div>
             <child :d="obj" :m="arr"></child>
 
-            <h3 class="common-show-code">k：keys对象配置说明</h3>
-            
+            <h3 class="common-show-code">k -> keys支持格式说明 {text: value} </h3>
+            <p>1、text为指定输出key对应名。</p>
+            <p>2、value支持四种格式：值输出、string、object、function。</p>
+            <div class="common-text-params ti2em">
+                <p>(1) 值输出：!value || (isString(value) && !/.\../.test(value) && !(value in obj))</p>
+                <p>(2) string：支持点语法深度映射</p>
+                <p>(3) object：{default:value, undefined:'', null:'', empty:'', callback:(val,key,data)=>{return value}, '自定义':''}</p>
+                <p>(4) function：(item,i,data)=>{ return value }</p>
+            </div>
+            <p>2.1、object.default：指定映射key；</p>
+            <p>2.2、值转换undefined | null | empty(空串)：默认转换为""空串；</p>
+            <p>2.3、object.callback：数据处理完成后的回调钩子；</p>
+            <p>2.4、object.除关键字：指定自定义转换值；</p>
         </div>
     </div>
 </template>
