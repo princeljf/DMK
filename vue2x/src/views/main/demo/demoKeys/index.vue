@@ -1,21 +1,72 @@
 <template>
     <div class="common-main-tpl">
-        <h2>子组件keys</h2>
+        <h2>子组件DMK.init()初始化</h2>
         <div class="common-demo-tpl">
-            <h3>渲染结果</h3>
+            <h3>init初始化mixins，实现自动watch数据更新。</h3>
+            <div class="common-step-title">1、单个dmk绑定</div>
+            <div class="common-code-box">
+                <span>子组件模板：child.vue</span>
+                <codemirror v-model="codeChild"></codemirror>
+                <span>父组件引入child.vue</span>
+                <codemirror value='
+<child :d="apiData1" :k="keys"></child>
+<script>
+    let apiData1 = [
+        {name: "张三", score: 80, age: 25 },
+        {name: "李四", score: 58, age: 16 },
+    ]
+    let keys = {
+        text: "name",
+        value: (item)=>{
+            return item.score + "分";
+        }
+    }
+</script>
+//渲染结果如下          
+                '>
+                </codemirror>
+            </div>
             <!-- 单个dmk绑定 -->
             <child :d="apiData1" :k="keys"></child>
+            <div class="common-step-title">2、多个dmk绑定</div>
+            <div class="common-code-box">
+                <span>子组件模板：child2.vue</span>
+                <codemirror v-model="codeChild2"></codemirror>
+                <span>父组件引入child2.vue</span>
+                <codemirror value='
+<child2 :arr="{d:apiData1, k:keys}" :arr2="{d:apiData2, m:maps}"></child2>
+<script>
+    let apiData1 = [
+        {name: "张三", score: 80, age: 25 },
+        {name: "李四", score: 58, age: 16 },
+    ]
+    let keys = {
+        text: "name",
+        value: (item)=>{
+            return item.score + "分";
+        }
+    }
+    let apiData2 = {
+        score1: "合格", score2: "不合格"
+    }
+    let maps = [
+        {text: "语文", value: "score1"},
+        {text: "数学", value: "score2"},
+    ]
+</script>
+//渲染结果如下          
+                '>
+                </codemirror>
+            </div>
             <!-- 多个dmk绑定 -->
             <child2 :arr="{d:apiData1, k:keys}" :arr2="{d:apiData2, m:maps}"></child2>
-            <h3 class="common-show-code">查看代码</h3>
-            <div class="common-code-box">
-                <span>父组件：index.vue</span>
-                <codemirror v-model="codeParent"></codemirror>
-                <span>子组件（单个dmk绑定）：child.vue</span>
-                <codemirror v-model="codeChild"></codemirror>
-                <span>子组件（多个dmk绑定）：child2.vue</span>
-                <codemirror v-model="codeChild2"></codemirror>
-            </div>
+            <div class="common-step-title"><b>3、DMK.init( [bindKey]=(String | Object | Array, [option]=Object )</b></div>
+            <h3 class="common-show-code">参数说明：</h3>
+            <table class="common-table-params">
+                <tr><th>参数名</th><th>类型</th><th>默认值</th><th>备注</th></tr>
+                <tr><td>bindKey</td><td>string | object | array</td><td>"arr"</td><td>非必填</td></tr>
+                <tr><td>option</td><td>object</td><td>无</td><td>非必填</td></tr>
+            </table>
         </div>
     </div>
 </template>
@@ -23,48 +74,6 @@
 
 import child from './child'
 import child2 from './child2'
-const codeParent = `
-<template>
-    <div class="common-demo-tpl">
-        <h3>渲染结果</h3>
-        <!-- 单个dmk绑定 -->
-        <child :d="apiData1" :k="keys"></child>
-        <!-- 多个dmk绑定 -->
-        <child2 :arr="{d:apiData1, k:keys}" :arr2="{d:apiData2, m:maps}"></child2>
-    </div>
-</template>
-<script>
-import child from './child'
-import child2 from './child2'
-export default {
-    data() { 
-        return {
-            apiData1:[
-                {name: '张三', score: 80, age: 25 },
-                {name: '李四', score: 58, age: 16 },
-            ],
-            keys:{
-                text: 'name',
-                value: (item)=>{
-                    return item.score + '分';
-                }
-            },
-            apiData2:{
-                name1: '科目一', score1: '合格', name2: '科目二', score2: '不合格'
-            },
-            maps:[
-                {text: 'name1', value: 'score1'},
-                {text: 'name2', value: 'score2'},
-            ]
-            
-        }
-    },
-    components:{
-        child, child2
-    },
-}
-<\/script>
-`;
 const codeChild = `
 <template>
     <div class="common-child-tpl">
@@ -87,7 +96,7 @@ export default {
         }
     },
     created(){
-        this.$DMK.init();//等价于this.$DMK.init('arr') 或 this.$DMK.init({arr:'arr'})
+        this.$DMK.init();//等价于this.$DMK.init('arr')
     },
 }
 <\/script>
@@ -144,7 +153,6 @@ export default {
 export default {
     data() { 
         return {
-            codeParent: codeParent,
             codeChild: codeChild,
             codeChild2: codeChild2,
             apiData1:[
@@ -158,11 +166,11 @@ export default {
                 }
             },
             apiData2:{
-                name1: '科目一', score1: '合格', name2: '科目二', score2: '不合格'
+                score1: "合格", score2: "不合格"
             },
             maps:[
-                {text: 'name1', value: 'score1'},
-                {text: 'name2', value: 'score2'},
+                {text: "语文", value: "score1"},
+                {text: "数学", value: "score2"},
             ]
             
         }

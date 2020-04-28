@@ -18,12 +18,12 @@ export default {
         return {
             munus:{
                 arr: [
-                    { text: 'test', tpl: 'test' },
+                    // { text: 'test', tpl: 'test' },
                     { text: '安装', tpl: 'install' },
                     { text: '介绍', tpl: 'introduce' },
-                    { text: 'HelloWorld', tpl: 'HelloWorld' },
+                    // { text: 'HelloWorld', tpl: 'HelloWorld' },
                     { text: '起步', tpl: 'demoStep' },
-                    { text: '子组件keys', tpl: 'demoKeys' },
+                    { text: 'DMK.init()', tpl: 'demoKeys' },
                     { text: '动态表格监听', tpl: 'demoTable' },
                     { text: '致谢', tpl: 'thanks' },
                 ],

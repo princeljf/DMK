@@ -10,16 +10,16 @@
             </code>
         </div>
         <div class="common-tpl-title">
-            二、全局引入
-        </div>
-        <div class="common-tpl-code">
-            <codemirror v-model="codeParent" :options="{mode: 'javascript'}"></codemirror>
-        </div>
-        <div class="common-tpl-title">
-            三、组件引入
+            二、组件引入
         </div>
         <div class="common-tpl-code">
             <codemirror v-model="codeChild" :options="{mode: 'javascript'}"></codemirror>
+        </div>
+        <div class="common-tpl-title">
+            三、全局引入
+        </div>
+        <div class="common-tpl-code">
+            <codemirror v-model="codeParent" :options="{mode: 'javascript'}"></codemirror>
         </div>
         <div class="common-tpl-title">
             四、使用DMK.get()处理数据函数
