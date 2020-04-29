@@ -67,7 +67,19 @@
                 <tr><td>bindKey</td><td>string | object | array</td><td>"arr"</td><td>非必填</td></tr>
                 <tr><td>option</td><td>object</td><td>无</td><td>非必填</td></tr>
             </table>
-            
+
+            <p class="common-show-code">参数一：bindKey，指定需要绑定的数据源</p>
+            <div class="common-text-params ti2em">
+                <p>(1) string=key：默认值为key="arr"={arr:"arr"}，表示绑定this[key]，点语法请使用object传参，父组件绑定:d/:m/:k</p>
+                <p>(2) object={key:value}：表示绑定this[value]，value支持点语法深度映射，父组件绑定:d/:m/:k</p>
+                <p>(3) array=[arr, {key:value}]：绑定多套数据源，父组件绑定:arr={:d/:m/:k}、:key={:d/:m/:k}</p>
+            </div>
+            <p class="common-show-code">参数二：option，设置相关配置项</p>
+            <div class="common-text-params ti2em">
+                <p>(1) option.dmkMapOpt：绑定数据源映射配置，默认值为dmkMapOpt={d:'$attrs.d', m:'$attrs.m', k:'$attrs.k'}</p>
+                <p>(2) option.ckMapOpt：绑定子组件映射配置，默认值为ckMapOpt=[arr:'keys']，示例：bindKey=[arr, {key:value}]，ckMapOpt={arr:'keys', key:'otherKeys'}</p>
+                <p>(3) option.valMapOpt：绑定输出值映射配置，默认值为valMapOpt={undefined:'', null:'', empty:''}</p>
+            </div>
         </div>
     </div>
 </template>
