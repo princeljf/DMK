@@ -11,7 +11,8 @@ let DEF_OPT = {
         'empty':'',         //值为空字符串''时，转换为设置的值
         'undefined':'',     //值为undefined时，转换为设置的值
         'null':'',          //值为null时，转换为设置的值
-    }
+    },
+    dmkOption: 'dmkOption', //指定组件配置项属性名
 };
 const DEF_OPT_COPY = LHH.extend(true, DEF_OPT);//全局配置项副本
 //设置全局默认配置
@@ -163,6 +164,7 @@ const dataMapsKeysMixins = {
                     bindKeys: [],
                     childKeys:[],
                     valMapOpt: {},
+                    dmkOption: '',
                     datas:{
 
                     },
@@ -202,14 +204,16 @@ const dataMapsKeysMixins = {
                     },
                     setValMapOpt: ()=>{
                         //配置项优先级：全局setOption < 子组件init < 父组件:option < 指定项maps2keys
+                        let outputObj = this.dmk_mixins_data_.outputData;
                         let defOpt = DEF_OPT.valMapOpt;
                         let ip = this.dmk_mixins_data_.inputParams;
                         let inputOpt = LHH.isObject(ip.option) ? ip.option.valMapOpt : {};
-                        let attrsOpt = LHH.isObject(this.$attrs.option) ? this.$attrs.option : {};
+                        let attrsOpt = LHH.isObject(this.$attrs[outputObj.dmkOption]) ? this.$attrs[outputObj.dmkOption] : {};
                         LHH.extend(this.dmk_mixins_data_.outputData.valMapOpt, defOpt, inputOpt, attrsOpt.valMapOpt);
                     },
                     setInputOption: (option)=>{
                         let outputObj = this.dmk_mixins_data_.outputData;
+                        outputObj.dmkOption = LHH.isString(option.dmkOption) ? option.dmkOption : DEF_OPT.dmkOption;
                         let dmkMapOpt = outputObj.dmkMapOpt;
                         let ckMapOpt = LHH.isObject(option.ckMapOpt) ? option.ckMapOpt : {};
                         this.dmk_mixins_data_.fn.setValMapOpt(option);

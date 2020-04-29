@@ -79,6 +79,7 @@
                 <p>(1) option.dmkMapOpt：绑定数据源映射配置，默认值为dmkMapOpt={d:'$attrs.d', m:'$attrs.m', k:'$attrs.k'}</p>
                 <p>(2) option.ckMapOpt：绑定子组件映射配置，默认值为ckMapOpt=[arr:'keys']，示例：bindKey=[arr, {key:value}]，ckMapOpt={arr:'keys', key:'otherKeys'}</p>
                 <p>(3) option.valMapOpt：绑定输出值映射配置，默认值为valMapOpt={undefined:'', null:'', empty:''}</p>
+                <p>(4) option.dmkOption：指定父组件配置项属性名，默认值为dmkOption="dmkOption"，示例：:dmkOption="{...}"</p>
             </div>
         </div>
     </div>

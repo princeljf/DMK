@@ -51,7 +51,8 @@ let DEF_OPT = {
         'empty':'',         //值为空字符串''时，转换为设置的值
         'undefined':'',     //值为undefined时，转换为设置的值
         'null':'',          //值为null时，转换为设置的值
-    }
+    },
+    dmkOption: 'dmkOption', //指定组件配置项属性名
 };
 
 //created钩子函数
