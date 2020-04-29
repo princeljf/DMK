@@ -60,13 +60,14 @@
             </div>
             <!-- 多个dmk绑定 -->
             <child2 :arr="{d:apiData1, k:keys}" :arr2="{d:apiData2, m:maps}"></child2>
-            <div class="common-step-title"><b>3、DMK.init( [bindKey]=(String | Object | Array, [option]=Object )</b></div>
+            <div class="common-step-title"><b>3、DMK.init( [bindKey]=String | Object | Array, [option]=Object )</b></div>
             <h3 class="common-show-code">参数说明：</h3>
             <table class="common-table-params">
                 <tr><th>参数名</th><th>类型</th><th>默认值</th><th>备注</th></tr>
                 <tr><td>bindKey</td><td>string | object | array</td><td>"arr"</td><td>非必填</td></tr>
                 <tr><td>option</td><td>object</td><td>无</td><td>非必填</td></tr>
             </table>
+            
         </div>
     </div>
 </template>

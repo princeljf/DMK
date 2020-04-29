@@ -2,15 +2,14 @@
     <div class="common-main-tpl">
         <h2>动态表格监听</h2>
         <div class="common-demo-tpl">
-            <h3>渲染结果</h3>
-            <p><span @click="clickBtn('add')" class="common-btn">增加一列</span><span @click="clickBtn('del')" class="common-btn">删除一列</span></p>
+            <h3>不用定义相关props属性，dmk绑定数据源变动会自动watch更新。</h3>
+            <p><span @click="clickBtn('add')" class="common-btn">增加一列</span><span v-show="addLength" @click="clickBtn('del')" class="common-btn">删除一列</span></p>
             <child :titles="{d:titleArr}" :datas="{d:apiData1, k:titleKeys}"></child>
-            <h3 class="common-show-code">查看代码</h3>
             <div class="common-code-box">
+                <span>子组件模板：child.vue</span>
+                <codemirror v-model="codeChild"></codemirror>
                 <span>父组件：index.vue</span>
                 <codemirror v-model="codeParent"></codemirror>
-                <span>子组件：child.vue</span>
-                <codemirror v-model="codeChild"></codemirror>
             </div>
         </div>
     </div>
@@ -20,45 +19,30 @@
 import child from './child'
 import dateUtil from '@/util/dateUtil.js'
 const codeParent = `
+//引用表格组件
+<child :titles="{d:titleArr}" :datas="{d:apiData1, k:titleKeys}"></child>
+
 <script>
-<template>
-    <div class="common-demo-tpl">
-        <p><span @click="clickBtn('add')" class="common-btn">增加一列</span><span @click="clickBtn('del')" class="common-btn">删除一列</span></p>
-        <child :titles="{d:titleArr}" :datas="{d:apiData1, k:titleKeys}"></child>
-    </div>
-</template>
 export default {
     data() { 
         return {
             apiData1:[
-                {studenName:'张三', birthday:'1992-10-05', phoneNumber:'13590269110', datetime: new Date().getTime(), score1: 100, score2: 90, score3: 100, score4: 100 },
-                {studenName:'李四', birthday:'1996-10-04', phoneNumber:'13390269814', datetime: new Date().getTime(), score1: 100, score2: '', score3: undefined, score4: '' },
-                {studenName:'王五', birthday:'1988-08-05', phoneNumber:'13490269195', datetime: new Date().getTime(), score1: 100, score2: '', score3: null, score4: '错误数据' },
+                {studenName:'张三', birthday:'1992-10-05', age:50, phone:'13590269110'},
+                {studenName:'李四', birthday:'1996-10-04', age:22, phone:'13390269814'},
+                {studenName:'王五', birthday:'1988-08-05', age:34, phone:'13490269195'},
             ],
             titleArr:[
                 {title: '姓名', key: 'name' },
+                {title: '年龄', key: 'age' },
                 {title: '出生日期', key: 'birthday' },
                 {title: '手机号', key: 'phone' },
-                {title: '报名日期', key: 'date' },
-                {title: '科目一', key: 'score1' },
-                {title: '科目二', key: 'score2' },
-                {title: '科目三', key: 'score3' },
-                {title: '科目四', key: 'score4' },
-                {title: '是否合格', key: 'result' },
             ],
+            //需要处理的数据映射
             titleKeys:{
-                name: 'studenName',//映射key
-                birthday: (item)=>{
-                    return item.birthday.replace(/\-/g, '\/');//函数处理
-                },
-                phone: 'phoneNumber',
-                date: (item)=>{
-                    return dateUtil.format(item.datetime, 'yyyy-MM-dd');
-                },
-                score3: {default: 'score3', undefined:'undefined默认转换为空串', null:'null默认转换为空串' },
-                score4: {default: 'score4', empty:'空串默认转换值', '错误数据':'任意转换值' },
-                result: (item)=>{
-                    return item.score1>=80&&item.score2>=80&&item.score3>=80&&item.score4>=80 ? '合格' : '/';
+                name: 'studenName',
+                phone: (item)=>{
+                    let reg=/(\d{3})\d{4}(\d{4})/
+                    return item.phone.replace(reg,'$1****$2')
                 },
             },
             addLength: 0,
@@ -74,10 +58,9 @@ export default {
             if(type=='add'){
                 this.addLength++;
                 this.titleArr.push({title: addKey, key: addKey },);
-                this.$set(this.titleKeys, addKey, 'studenName');
+                this.titleKeys[addKey] = addKey;
             }else if(type=='del'){
-                this.addLength--;
-                this.titleArr.pop();
+                this.addLength && this.titleArr.pop() && this.addLength--;
             }
         },
     },
@@ -87,7 +70,7 @@ export default {
 const codeChild = `
 <template>
     <div class="common-child-tpl">
-        <table border="1">
+        <table class="common-table-params">
             <tr>
                 <th v-for="(item,i) in titleArr" :key="i">
                     {{item[keys.title]}}
@@ -109,16 +92,8 @@ export default {
                 title: 'title',
                 key: 'key'
             },
-            //动态keys请使用computed或者watch或者props处理
-            // keys2: this.initKeys(),
+            // keys2:{},//动态keys建议使用computed
         }
-    },
-    watch: {
-        // '$attrs.titles':function(){
-        //     //mixins监听完成，后执行此watch，所以tableArr没有新增列数据
-        //     this.keys2 = this.initKeys();
-        //     this.$DMK.update();//使用update方法更新数据
-        // }
     },
     computed: {
         keys2(){
@@ -150,34 +125,22 @@ export default {
             codeParent: codeParent,
             codeChild: codeChild,
             apiData1:[
-                {studenName:'张三', birthday:'1992-10-05', phoneNumber:'13590269110', datetime: new Date().getTime(), score1: 100, score2: 90, score3: 100, score4: 100 },
-                {studenName:'李四', birthday:'1996-10-04', phoneNumber:'13390269814', datetime: new Date().getTime(), score1: 100, score2: '', score3: undefined, score4: '' },
-                {studenName:'王五', birthday:'1988-08-05', phoneNumber:'13490269195', datetime: new Date().getTime(), score1: 100, score2: '', score3: null, score4: '错误数据' },
+                {studenName:'张三', birthday:'1992-10-05', age:50, phone:'13590269110'},
+                {studenName:'李四', birthday:'1996-10-04', age:22, phone:'13390269814'},
+                {studenName:'王五', birthday:'1988-08-05', age:34, phone:'13490269195'},
             ],
             titleArr:[
                 {title: '姓名', key: 'name' },
+                {title: '年龄', key: 'age' },
                 {title: '出生日期', key: 'birthday' },
                 {title: '手机号', key: 'phone' },
-                {title: '报名日期', key: 'date' },
-                {title: '科目一', key: 'score1' },
-                {title: '科目二', key: 'score2' },
-                {title: '科目三', key: 'score3' },
-                {title: '科目四', key: 'score4' },
-                {title: '是否合格', key: 'result' },
             ],
+            //需要处理的数据映射
             titleKeys:{
-                name: 'studenName',//映射key
-                birthday: (item)=>{
-                    return item.birthday.replace(/\-/g, '\/');//函数处理
-                },
-                phone: 'phoneNumber',
-                date: (item)=>{
-                    return dateUtil.format(item.datetime, 'yyyy-MM-dd');
-                },
-                score3: {default: 'score3', undefined:'undefined默认转换为空串', null:'null默认转换为空串' },
-                score4: {default: 'score4', empty:'空串默认转换值', '错误数据':'任意转换值' },
-                result: (item)=>{
-                    return item.score1>=80&&item.score2>=80&&item.score3>=80&&item.score4>=80 ? '合格' : '/';
+                name: 'studenName',
+                phone: (item)=>{
+                    let reg=/(\d{3})\d{4}(\d{4})/
+                    return item.phone.replace(reg,'$1****$2')
                 },
             },
             addLength: 0,
@@ -193,10 +156,9 @@ export default {
             if(type=='add'){
                 this.addLength++;
                 this.titleArr.push({title: addKey, key: addKey },);
-                this.$set(this.titleKeys, addKey, 'studenName');
+                this.titleKeys[addKey] = addKey;
             }else if(type=='del'){
-                this.addLength--;
-                this.titleArr.pop();
+                this.addLength && this.titleArr.pop() && this.addLength--;
             }
         },
     },

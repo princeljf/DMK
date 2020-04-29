@@ -1,6 +1,6 @@
 <template>
     <div class="common-child-tpl">
-        <table border="1">
+        <table class="common-table-params">
             <tr>
                 <th v-for="(item,i) in titleArr" :key="i">
                     {{item[keys.title]}}
@@ -22,17 +22,8 @@ export default {
                 title: 'title',
                 key: 'key'
             },
-            //动态keys建议使用computed，也可使用watch和props
-            // keys2: this.initKeys(),
+            // keys2:{},//动态keys建议使用computed
         }
-    },
-    watch: {
-        // '$attrs.titles':function(){
-        //     //mixins监听完成，后执行此watch，所以tableArr没有新增列数据
-        //     this.keys2 = this.initKeys();
-        //     //强制更新：全局注册需传递实例对象this，否则更新的为最后一个绑定的实例对象
-        //     this.$DMK.update(this);//使用update方法更新数据
-        // }
     },
     computed: {
         keys2(){

@@ -9,7 +9,7 @@
                 <codemirror v-model="codeChild"></codemirror>
             </div>
             <div class="common-code-box">
-                <span class="fw-bold">引用模板：父组件：index.vue</span>
+                <span class="fw-bold">引用模板：</span>
                 <codemirror v-model="codeParent"></codemirror>
             </div>
             <child :d="apiData1"></child>

@@ -54,9 +54,8 @@ let DEF_OPT = {
     }
 };
 
-//组件在created钩子
+//created钩子函数
 this.$DMK.setOption( DEF_OPT );//使用前可设置全局配置项
-this.$DMK.init();//初始化使用mixins
 `;
 const codeChild = `
 //子组件
