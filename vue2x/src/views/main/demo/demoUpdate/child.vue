@@ -29,7 +29,7 @@ export default {
         '$attrs.titles.d':{
             handler(){
                 this.keys2 = this.initKeys();
-                // 声明重新生成数据，全局注册则需要传递实例对象this
+                // 重新生成数据，全局注册则需要传递实例对象this
                 // this.$DMK.update(this);
             }
         }

@@ -22,7 +22,7 @@
             <codemirror v-model="codeParent" :options="{mode: 'javascript'}"></codemirror>
         </div>
         <div class="common-tpl-title">
-            四、使用DMK.get()处理数据函数
+            四、使用DMK.get(arr2obj, maps2keys)处理数据函数
         </div>
         <div class="common-tpl-code">
             <codemirror v-model="codeGet" :options="{mode: 'javascript'}"></codemirror>
@@ -59,13 +59,21 @@ let DEF_OPT = {
 this.$DMK.setOption( DEF_OPT );//使用前可设置全局配置项
 `;
 const codeChild = `
-//子组件
+// parent.vue
+<child :d="data"></child>
+let data = [{text: '张三', value: 80}, {text: '李四', value: 58}]
+
+// child.vue
 import DMK from 'dmk'
 export default {
     mixins: [DMK.mixins],
     data() { 
         return {
             arr: [],
+            keys:{
+                text: 'text',
+                value: 'value',
+            }
         }
     },
     created() { 
@@ -74,7 +82,6 @@ export default {
 }
 `;
 const codeGet = `
-let arr = DMK.get(arr2obj, maps2keys);
 //支持三种参数形式
 let arr1 = DMK.get([], {});//数组+对象
 let arr2 = DMK.get({}, {});//对象+对象：let obj = DMK.get({}, {}, true);//返回对象

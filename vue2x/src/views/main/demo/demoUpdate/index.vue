@@ -1,6 +1,6 @@
 <template>
     <div class="common-main-tpl">
-        <h2>DMK.update()强制更新方法</h2>
+        <h2>DMK.update()更新方法</h2>
         <div class="common-demo-tpl">
             <h3>一、动态表格监听-示例中：</h3>
             <p>1、动态keys我们使用的是computed实现的，现在我们改用watch，然后点击"增加一列"；我们发现表头更新了，但是表格数据没有渲染；</p>
@@ -18,7 +18,7 @@
         <table class="common-table-params">
             <tr><th>参数名</th><th>类型</th><th>默认值</th><th>备注</th></tr>
             <tr><td>callback</td><td>function</td><td>无</td><td>非必填，回调钩子函数</td></tr>
-            <tr><td>context</td><td>this</td><td>this->最后一个实例对象</td><td>非必填，强制更新的实例对象</td></tr>
+            <tr><td>context</td><td>this</td><td>this->最后一个实例对象</td><td>非必填，指定更新的实例对象</td></tr>
         </table>
         <h3 class="common-show-code">示例：</h3>
         <div class="common-code-box">
@@ -31,7 +31,7 @@
     DMK.update( ()=>{console.log("回调钩子函数")}, this );//设置回调函数和实例对象
     DMK.update( this, ()=>{console.log("回调钩子函数")} });//设置回调函数和实例对象
     //全局注册mixins注意事项：必须指定更新当前实例对象，否则有可能更新不成功
-    this.$DMK.update( this );//正常传this指向当前实例即可
+    this.$DMK.update( this );//通常传this指向当前实例即可
 </script>
             '></codemirror>
         </div>
@@ -72,7 +72,7 @@ export default {
         '$attrs.titles.d':{
             handler(){
                 this.keys2 = this.initKeys();
-                // 声明重新生成数据，全局注册则需要传递实例对象this
+                // 重新生成数据，全局注册则需要传递实例对象this
                 // this.$DMK.update(this);
             }
         }

@@ -69,7 +69,7 @@ let keys2={
                 <tr><td>m</td><td>array</td><td>无</td><td>非必填：当d类型为object时配合使用</td></tr>
                 <tr><td>k</td><td>object</td><td>this.keys</td><td>非必填：当d类型为array | object时配合使用<br></td></tr>
             </table>
-            <h3 class="common-show-code">示例：</h3>
+            <h3 class="common-show-code">示例：详细描述了各种场景支持</h3>
             <div class="common-code-box">
                 <codemirror value='
     <child :d="obj" :m="arr"></child>
@@ -84,7 +84,7 @@ let keys2={
         { text:"报名时间", value:"date.0.startDate"},//支持点语法深度映射
         { text:"科目一", value:{default:"score1", callback:(val)=>{ return val}} },//内置callback钩子，在值处理完成后执行
         { text:"科目二", value:{default:"score2"} },//等同于value:"score2"
-        { text:"科目三", value:(item)=>{return item.score3} },//回调方法处理
+        { text:"科目三", value:(item)=>{return item.score3} },//function函数处理
         { text:"科目四", value:{default:"score4", "自定义":"等待公布成绩"} },//除关键字外：支持自定义值转换
         { text:"是否完成", value:false },//值无法匹配obj映射关系时，直接当作值返回。
     ]
