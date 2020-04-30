@@ -2,7 +2,7 @@
     <div class="common-main-tpl">
         <h2>介绍</h2>
         <div class="common-tpl-title">
-            一、DMK 主要功能
+            一、DMK.js（dataMapsKeys）for Vue mixins 主要功能
         </div>
         <div class="common-tpl-code">
             <p>1. 数据处理和数据转换、自动watch数据更新；</p>

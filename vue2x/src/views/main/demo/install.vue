@@ -42,9 +42,9 @@ Vue.prototype.$DMK = DMK;//全局挂载DMK
 //全局配置项
 let DEF_OPT = {
     dmkMapOpt:{
-        d:'$attrs.d',     
-        m:'$attrs.m', 
-        k:'$attrs.k',
+        d:'$attrs.d',  //data     
+        m:'$attrs.m',//maps
+        k:'$attrs.k',  //keys
         ck: 'keys', //子组件绑定模板的数据源，默认为this.keys：支持$data.keys或者$props.keys形式
     },
     valMapOpt:{
@@ -55,18 +55,12 @@ let DEF_OPT = {
     dmkOption: 'dmkOption', //指定组件配置项属性名
 };
 
-//created钩子函数
-this.$DMK.setOption( DEF_OPT );//使用前可设置全局配置项
+this.$DMK.setOption( DEF_OPT );//使用前可修改全局配置项
 `;
 const codeChild = `
-// parent.vue
-<child :d="data"></child>
-let data = [{text: '张三', value: 80}, {text: '李四', value: 58}]
-
-// child.vue
 import DMK from 'dmk'
 export default {
-    mixins: [DMK.mixins],
+    mixins: [DMK.mixins],//引入mixins
     data() { 
         return {
             arr: [],

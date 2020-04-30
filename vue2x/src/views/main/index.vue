@@ -11,17 +11,15 @@
 
 <script>
 import commonMenus from './commonMenus';
-import {test, install, introduce, HelloWorld,demoStep, demoKeys, demoTable, demoUpdate, thanks} from './demo.js';
+import { install, introduce, demoStep, demoKeys, demoTable, demoUpdate, thanks} from './demo.js';
 export default {
     name: 'common-main-box',
     data() { 
         return {
             munus:{
                 arr: [
-                    // { text: 'test', tpl: 'test' },
-                    { text: '安装', tpl: 'install' },
                     { text: '介绍', tpl: 'introduce' },
-                    // { text: 'HelloWorld', tpl: 'HelloWorld' },
+                    { text: '安装', tpl: 'install' },
                     { text: '起步', tpl: 'demoStep' },
                     { text: 'DMK.init()', tpl: 'demoKeys' },
                     { text: '动态表格监听', tpl: 'demoTable' },
@@ -33,14 +31,14 @@ export default {
                 },
             },
             component:{
-                tpl: 'demoUpdate',
+                tpl: 'introduce',
                 // tpl: 'install',
             }
         }
     },
     components:{ 
         commonMenus,
-        test, install, introduce, HelloWorld, demoStep, demoKeys, demoTable, demoUpdate, thanks,
+        install, introduce, demoStep, demoKeys, demoTable, demoUpdate, thanks,
     },
     created() { 
         
