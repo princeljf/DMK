@@ -11,7 +11,7 @@
 
 <script>
 import commonMenus from './commonMenus';
-import {test, install, introduce, HelloWorld,demoStep, demoKeys, demoTable, thanks} from './demo.js';
+import {test, install, introduce, HelloWorld,demoStep, demoKeys, demoTable, demoUpdate, thanks} from './demo.js';
 export default {
     name: 'common-main-box',
     data() { 
@@ -25,6 +25,7 @@ export default {
                     { text: '起步', tpl: 'demoStep' },
                     { text: 'DMK.init()', tpl: 'demoKeys' },
                     { text: '动态表格监听', tpl: 'demoTable' },
+                    { text: 'DMK.update()', tpl: 'demoUpdate' },
                     { text: '致谢', tpl: 'thanks' },
                 ],
                 click:(item,i,arr)=>{
@@ -32,14 +33,14 @@ export default {
                 },
             },
             component:{
-                tpl: 'demoStep',
+                tpl: 'demoUpdate',
                 // tpl: 'install',
             }
         }
     },
     components:{ 
         commonMenus,
-        test, install, introduce, HelloWorld, demoStep, demoKeys, demoTable, thanks,
+        test, install, introduce, HelloWorld, demoStep, demoKeys, demoTable, demoUpdate, thanks,
     },
     created() { 
         

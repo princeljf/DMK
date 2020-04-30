@@ -171,10 +171,11 @@ const dataMapsKeysMixins = {
                 },
                 fn:{
                     //更新函数
-                    update: (callback)=>{
-                        let ip = this.dmk_mixins_data_.inputParams;
-                        ip.bindKey && this._DMK_(ip.bindKey, ip.option) && LHH.isFunction(callback) && setTimeout(()=>{
-                            this.$nextTick(()=>{
+                    update: (callback, context)=>{
+                        let self = context || this;
+                        let ip = self.dmk_mixins_data_.inputParams;
+                        ip.bindKey && self._DMK_(ip.bindKey, ip.option) && LHH.isFunction(callback) && setTimeout(()=>{
+                            self.$nextTick(()=>{
                                 callback();
                             });
                         },1);
@@ -370,12 +371,12 @@ const DMK = ((LHH)=>{
     };//END -> DMK.setOption()
 
     returnObj.prototype.update = (callback, context)=>{
-        let cb=callback, ct=context;
+        let cb=callback, ct=context || dataMapsKeysMixins.dmkMixinsSelf.vm2parent;
         if(!LHH.isFunction(callback)){
             ct = callback;
             cb = context;
         }
-        return dataMapsKeysMixins.dmk_mixins_data_.fn.update.call(ct || dataMapsKeysMixins.dmkMixinsSelf.vm2parent, cb);
+        return ct.dmk_mixins_data_.fn.update(cb);
     };//END -> DMK.setOption()
 
     return new returnObj();

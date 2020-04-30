@@ -22,7 +22,8 @@ var DEF_OPT = {
         'empty': '', //值为空字符串''时，转换为设置的值
         'undefined': '', //值为undefined时，转换为设置的值
         'null': '' //值为null时，转换为设置的值
-    }
+    },
+    dmkOption: 'dmkOption' //指定组件配置项属性名
 };
 var DEF_OPT_COPY = _LHH2.default.extend(true, DEF_OPT); //全局配置项副本
 //设置全局默认配置
@@ -82,16 +83,22 @@ var get_d2object = function get_d2object(d, k, ck, item, i, valMapOpt) {
     var obj = {};
     for (var ckey in ck) {
         var kkey = k[ckey];
-        //处理对象，默认key映射为defalut的值
-        if (_LHH2.default.isObject(kkey)) {
-            kkey = kkey.default || '';
-        }
-        if (!kkey) {
-            console.warn('Keys or Maps is empty.');
-        } else if (_LHH2.default.isFunction(kkey)) {
-            obj[ck[ckey]] = kkey(_LHH2.default.extend({}, item), i, d);
+        //当映射值为字符串且不存在点语法且  映射值不包含于数据源中，直接返回当前值
+
+        if (!kkey || _LHH2.default.isString(kkey) && !/.\../.test(kkey) && !(kkey in item)) {
+            obj[ck[ckey]] = kkey;
         } else {
-            obj[ck[ckey]] = get_deepData(_LHH2.default.extend({}, item), kkey, k[ckey], valMapOpt);
+            //处理对象，默认key映射为defalut的值
+            if (_LHH2.default.isObject(kkey)) {
+                kkey = kkey.default || '';
+            }
+            if (!kkey) {
+                console.warn('Keys or Maps is empty.');
+            } else if (_LHH2.default.isFunction(kkey)) {
+                obj[ck[ckey]] = kkey(_LHH2.default.extend({}, item), i, d);
+            } else {
+                obj[ck[ckey]] = get_deepData(_LHH2.default.extend({}, item), kkey, k[ckey], valMapOpt);
+            }
         }
     }
     return obj;
@@ -158,7 +165,11 @@ var get_dmkMapOpt = function get_dmkMapOpt() {
 };
 
 var dataMapsKeysMixins = {
-    vm2parent: null,
+    dmkMixinsSelf: {
+        vm2parent: null, //指向组件实例
+        setOptionLock: 0, //判断全局配置是否设置过
+        warn: true
+    },
     name: 'dataMapsKeysMixins',
     data: function data() {
         var _this = this;
@@ -176,14 +187,17 @@ var dataMapsKeysMixins = {
                     mapAttrs: [],
                     bindKeys: [],
                     childKeys: [],
-                    valMapOpt: null,
+                    valMapOpt: {},
+                    dmkOption: '',
                     datas: {}
                 },
                 fn: {
-                    update: function update(callback) {
-                        var ip = _this.dmk_mixins_data_.inputParams;
-                        ip.bindKey && _this._DMK_(ip.bindKey, ip.option) && _LHH2.default.isFunction(callback) && setTimeout(function () {
-                            _this.$nextTick(function () {
+                    //更新函数
+                    update: function update(callback, context) {
+                        var self = context || _this;
+                        var ip = self.dmk_mixins_data_.inputParams;
+                        ip.bindKey && self._DMK_(ip.bindKey, ip.option) && _LHH2.default.isFunction(callback) && setTimeout(function () {
+                            self.$nextTick(function () {
                                 callback();
                             });
                         }, 1);
@@ -211,15 +225,18 @@ var dataMapsKeysMixins = {
                             });
                         }
                     },
-                    setValMapOpt: function setValMapOpt(option) {
-                        var opt = _LHH2.default.isObject(option) ? option : {};
-                        var defOpt = _this.dmk_mixins_data_.outputData.valMapOpt;
-                        for (var k in defOpt) {
-                            k instanceof opt && (defOpt[k] = opt[k]);
-                        }
+                    setValMapOpt: function setValMapOpt() {
+                        //配置项优先级：全局setOption < 子组件init < 父组件:option < 指定项maps2keys
+                        var outputObj = _this.dmk_mixins_data_.outputData;
+                        var defOpt = DEF_OPT.valMapOpt;
+                        var ip = _this.dmk_mixins_data_.inputParams;
+                        var inputOpt = _LHH2.default.isObject(ip.option) ? ip.option.valMapOpt : {};
+                        var attrsOpt = _LHH2.default.isObject(_this.$attrs[outputObj.dmkOption]) ? _this.$attrs[outputObj.dmkOption] : {};
+                        _LHH2.default.extend(_this.dmk_mixins_data_.outputData.valMapOpt, defOpt, inputOpt, attrsOpt.valMapOpt);
                     },
                     setInputOption: function setInputOption(option) {
                         var outputObj = _this.dmk_mixins_data_.outputData;
+                        outputObj.dmkOption = _LHH2.default.isString(option.dmkOption) ? option.dmkOption : DEF_OPT.dmkOption;
                         var dmkMapOpt = outputObj.dmkMapOpt;
                         var ckMapOpt = _LHH2.default.isObject(option.ckMapOpt) ? option.ckMapOpt : {};
                         _this.dmk_mixins_data_.fn.setValMapOpt(option);
@@ -282,11 +299,11 @@ var dataMapsKeysMixins = {
         }
     },
     beforeCreate: function beforeCreate() {
-        dataMapsKeysMixins.vm2parent = this; //注意：全局注册，this更新为最后一个组件实例
+        dataMapsKeysMixins.dmkMixinsSelf.vm2parent = this; //注意：全局注册，this更新为最后一个组件实例
     },
 
     methods: {
-        //dmk内部主函数：组件初始化，使用此mixins必需调用，建议在created方法里执行：this._DMK_();
+        //dmk内部主函数：组件初始化，使用此mixins必需调用，建议在created方法里执行：DMK.init();
         _DMK_: function _DMK_() {
             var _this2 = this;
 
@@ -342,7 +359,7 @@ var DMK = function (LHH) {
      * import DMK from 'DMK';
      * let arr = DMK.get(obj2arr, maps2keys);
      * **/
-    returnObj.prototype.get = function (obj2arr, maps2keys) {
+    returnObj.prototype.get = function (obj2arr, maps2keys, isReturnObject) {
         //校验第一个参数是否为对象或者数组，否则无需转换直接返回false
         if (!LHH.isObject(obj2arr) && !LHH.isArray(obj2arr)) {
             console.log('warn: The first parameter type is not "Object or Array", return false.');return false;
@@ -369,7 +386,7 @@ var DMK = function (LHH) {
                 });
             } else if (LHH.isObject(k)) {
                 //data={}, keys={}
-                arr = get_d2array([d], k); //数组：data或者data+keys处理数据格式
+                arr = isReturnObject ? get_d2object(d, k, init_keys2childKeys(k), d, 0) : get_d2array([d], k); //数组：data或者data+keys处理数据格式
             }
         }
         return arr;
@@ -380,22 +397,31 @@ var DMK = function (LHH) {
         var bindKey = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'arr';
         var option = arguments[1];
 
-        return dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.vm2parent, bindKey, option);
+        return dataMapsKeysMixins.methods._DMK_.call(dataMapsKeysMixins.dmkMixinsSelf.vm2parent, bindKey, option);
     }; //END -> DMK.init()
 
     //设置 DEF_OPT 全局配置项方法
-    returnObj.prototype.setOption = function (option) {
-        return setDefOpt(option);
+    returnObj.prototype.setOption = function (option, isForceUpdate) {
+        var obj = dataMapsKeysMixins.dmkMixinsSelf;
+        var result = false;
+        if (!obj.setOptionLock || isForceUpdate) {
+            obj.setOptionLock && obj.warn && console.log('warn: 正在多次修改全局配置项，请确认已了解风险！');
+            result = setDefOpt(option);
+            result && obj.setOptionLock++;
+        } else {
+            obj.warn && console.log('warn: 请勿重复设置全局配置项，建议组件传参覆盖！(若已了解风险，可传递第二个参数强制覆盖)');
+        }
+        return result;
     }; //END -> DMK.setOption()
 
     returnObj.prototype.update = function (callback, context) {
         var cb = callback,
-            ct = context;
+            ct = context || dataMapsKeysMixins.dmkMixinsSelf.vm2parent;
         if (!LHH.isFunction(callback)) {
             ct = callback;
             cb = context;
         }
-        return dataMapsKeysMixins.dmk_mixins_data_.fn.update.call(ct || dataMapsKeysMixins.vm2parent, cb);
+        return ct.dmk_mixins_data_.fn.update(cb);
     }; //END -> DMK.setOption()
 
     return new returnObj();
