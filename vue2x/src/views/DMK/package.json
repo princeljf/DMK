@@ -1,7 +1,7 @@
 {
   "name": "dmk",
-  "version": "2.0.6",
-  "description": "DMK.js（dataMapsKeysMixins）for Vue mixins",
+  "version": "2.0.7",
+  "description": "DMK.js（dataMapsKeys）for Vue mixins",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

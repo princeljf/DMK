@@ -3,7 +3,7 @@
 ## 一、npm安装
 - $ npm install dmk --save
 
-### 最新文档和相关示例，建议git拉取完整代码查看，谢谢！
+### 个人网站完善中，最新文档和相关示例，建议git拉取完整代码查看，谢谢！
 - 1. git clone https://github.com/princeljf/DMK.git
 - 2. cd DMK/vue2x
 - 3. npm install
