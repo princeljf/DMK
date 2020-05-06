@@ -36,6 +36,19 @@ h3{
 .ti2em{
   text-indent: 2em;
 }
+.common-output-box{
+  padding: 10px 0;
+}
+.common-output-box .output-data{
+  color: #666;
+  font-weight: bold;
+}
+.common-output-box .output-data::before{
+  content: '输出结果：';
+  display: block;
+  width: 100%;
+  color: #333;
+}
 .common-text-params{
   color: #666;
 }
@@ -73,11 +86,11 @@ h3{
 }
 .CodeMirror {
     border: 1px solid #eee;
-    height: auto;
+    height: auto !important;;
 }
 
 .CodeMirror-scroll {
-    height: auto;
+    height: auto !important;
     overflow-y: hidden;
     overflow-x: auto;
 }

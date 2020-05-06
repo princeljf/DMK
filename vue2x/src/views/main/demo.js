@@ -1,6 +1,7 @@
 export const install = resolve=>require(["./demo/install.vue"],resolve)
 export const introduce = resolve=>require(["./demo/introduce.vue"],resolve)
 export const demoStep = resolve=>require(["./demo/demoStep/index.vue"],resolve)
+export const demoGet = resolve=>require(["./demo/demoGet/index.vue"],resolve)
 export const demoKeys = resolve=>require(["./demo/demoKeys/index.vue"],resolve)
 export const demoTable = resolve=>require(["./demo/demoTable/index.vue"],resolve)
 export const demoUpdate = resolve=>require(["./demo/demoUpdate/index.vue"],resolve)

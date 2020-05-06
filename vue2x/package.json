@@ -7,6 +7,8 @@
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js --open",
     "start": "npm run dev",
+    "dist": "serve -s dist",
+    "distDescription": "cnpm install -g serve",
     "lint": "eslint --ext .js,.vue src",
     "build": "node build/build.js"
   },
@@ -14,7 +16,7 @@
     "babel-runtime": "^6.26.0",
     "codemirror": "^5.53.0",
     "css-loader": "^3.0.0",
-    "dmk": "^2.0.6",
+    "dmk": "^2.0.7",
     "vue": "^2.5.2",
     "vue-codemirror": "^4.0.6",
     "vue-router": "^3.0.1",
