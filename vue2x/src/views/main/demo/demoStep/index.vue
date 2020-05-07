@@ -94,7 +94,7 @@ let keys2={
             </div>
             <child :d="obj" :m="arr"></child>
 
-            <h3 class="common-show-code">k -> keys支持格式说明 {text: value} </h3>
+            <h3 class="common-show-code">m、k -> maps2keys支持格式说明 {text: value} </h3>
             <p>1、text为指定输出key对应名。</p>
             <p>2、value支持四种格式：值输出、string、object、function。</p>
             <div class="common-text-params ti2em">

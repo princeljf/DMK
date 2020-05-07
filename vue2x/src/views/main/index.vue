@@ -32,8 +32,8 @@ export default {
                 },
             },
             component:{
-                tpl: 'demoGet',
-                // tpl: 'install',
+                tpl: 'introduce',
+                // tpl: 'introduce',
             }
         }
     },
