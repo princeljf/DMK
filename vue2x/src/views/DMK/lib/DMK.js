@@ -31,7 +31,7 @@ const setDefOpt = (option)=>{
 const get_deepData = (data, splitStr, option, defOption)=>{
     //新增：自定义字符转换和设置function、新增回调方法callback(val, key, data)
     let valMapOpt = LHH.isObject(defOption) ? defOption : LHH.extend(DEF_OPT.valMapOpt);
-    let opt = LHH.isObject(option) ? LHH.extend({}, valMapOpt, option) : valMapOpt;
+    let opt = LHH.isObject(option) ? LHH.extend({}, valMapOpt, option) : LHH.extend(DEF_OPT.valMapOpt, valMapOpt);
     let val = data;
     let flagStr = '';
     let splitArr = splitStr.split('.');
@@ -50,7 +50,7 @@ const get_deepData = (data, splitStr, option, defOption)=>{
             default:
                 flagStr = val;
         }
-        if( LHH.isString(flagStr) && (flagStr in opt) ){
+        if( (LHH.isString(flagStr) || LHH.isNumber(flagStr)) && (flagStr in opt) ){
             val = LHH.isFunction(opt[flagStr]) ? opt[flagStr]( val ) : opt[flagStr];
             break;
         }
@@ -320,7 +320,7 @@ const DMK = ((LHH)=>{
      * import DMK from 'DMK';
      * let arr = DMK.get(obj2arr, maps2keys);
      * **/
-    returnObj.prototype.get = (obj2arr, maps2keys, isReturnObject)=>{
+    returnObj.prototype.get = (obj2arr, maps2keys, isReturnObject, option)=>{
         //校验第一个参数是否为对象或者数组，否则无需转换直接返回false
         if(!LHH.isObject(obj2arr) && !LHH.isArray(obj2arr)){ console.log('warn: The first parameter type is not "Object or Array", return false.'); return false; }
         let arr = [];
@@ -331,21 +331,27 @@ const DMK = ((LHH)=>{
             let cpd = LHH.extend( d );//缺少参数，直接返回源数据副本
             return LHH.isObject(d) ? [cpd] : cpd; 
         }
+        //判断第三个和第四个参数
+        let retObj = isReturnObject, opt = LHH.isObject(option)?option:{};
+        if(LHH.isObject(isReturnObject)){
+            opt = isReturnObject;
+            retObj = option;
+        }
         if(LHH.isArray(d) && d.length){
             //源数据为数组结构、数组不为空
             //data=[], keys={}
-            arr = get_d2array(d, k);//数组：data或者data+keys处理数据格式
+            arr = get_d2array(d, k, opt);//数组：data或者data+keys处理数据格式
         }else if(LHH.isObject(d)){
             //源数据为对象结构
             if(LHH.isArray(m) && m.length){
                 //data={}, keys=[]
                 m.map((item,i)=>{
                     k = item;
-                    arr.push( get_d2object(d, k, init_keys2childKeys(k), d, i) );//对象：data或者data+keys或者data+maps处理数据格式
+                    arr.push( get_d2object(d, k, init_keys2childKeys(k), d, i, opt.valMapOpt) );//对象：data或者data+keys或者data+maps处理数据格式
                 });
             }else if(LHH.isObject(k)){
                 //data={}, keys={}
-                arr = isReturnObject ? get_d2object(d, k, init_keys2childKeys(k), d, 0) : get_d2array([d], k);//数组：data或者data+keys处理数据格式
+                arr = retObj ? get_d2object(d, k, init_keys2childKeys(k), d, 0, opt.valMapOpt) : get_d2array([d], k, opt);//数组：data或者data+keys处理数据格式
             }
         }
         return arr;

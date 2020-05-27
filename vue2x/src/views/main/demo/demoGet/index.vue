@@ -48,7 +48,7 @@
                 <p class="output-data">arr2 = {{$DMK.get(apiData2, maps)}}</p>
             </div>
 
-            <div class="common-step-title">2、用法三：DMK.get(obj, keys, isReturnObj=false)</div>
+            <div class="common-step-title">3、用法三：DMK.get(obj, keys, isReturnObj=false)</div>
             <div class="common-code-box">
                 <span>示例三：对象 + 对象</span>
                 <codemirror value='
@@ -68,7 +68,11 @@
                 <p class="output-data">arr3 = {{$DMK.get(apiData2, keys2)}}</p>
                 <p class="output-data">obj3 = {{$DMK.get(apiData2, keys2, true)}}</p>
             </div>
-
+            <h3 class="common-show-code">配置参数说明：DMK.get(arr2obj, maps2keys, option, isReturnObj)</h3>
+            <table class="common-table-params">
+                <tr><th>参数名</th><th>类型</th><th>默认值</th><th>备注</th></tr>
+                <tr><td>option</td><td>object</td><td>{ valMapOpt:{undefined:'', null:'', empty:''} }</td><td>非必填</td></tr>
+            </table>
             <h3 class="common-show-code">备注：DMK.get(arr2obj, maps2keys)返回数据与dmk处理数据完全一致！maps2keys语法支持格式也保持一致（参照起步）。</h3>
 
         </div>
@@ -82,6 +86,7 @@ export default {
             apiData1:[
                 {name: '张三', score: 80, age: 25 },
                 {name: '李四', score: 58, age: 16 },
+                {name: undefined, score: null, age: '' },
             ],
             keys:{
                 text: 'name',
