@@ -22,6 +22,9 @@ var LHH = function () {
     var isString = function isString(obj) {
         return Object.prototype.toString.call(obj) === '[object String]';
     };
+    var isBoolean = function isBoolean(obj) {
+        return Object.prototype.toString.call(obj) === '[object Boolean]';
+    };
     //借鉴jquery.extend
     var extend = function extend() {
         for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
@@ -106,6 +109,7 @@ var LHH = function () {
         isObject: isObject,
         isNumber: isNumber,
         isString: isString,
+        isBoolean: isBoolean,
         extend: extend
     };
 }();

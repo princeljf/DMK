@@ -364,21 +364,31 @@ var DMK = function (LHH) {
         if (!LHH.isObject(obj2arr) && !LHH.isArray(obj2arr)) {
             console.log('warn: The first parameter type is not "Object or Array", return false.');return false;
         }
-        var arr = [];
-        var d = obj2arr;
-        var m = LHH.isArray(maps2keys) ? maps2keys : false;
-        var k = LHH.isObject(maps2keys) ? maps2keys : false;
-        if (!m && !k) {
-            var cpd = LHH.extend(d); //缺少参数，直接返回源数据副本
-            return LHH.isObject(d) ? [cpd] : cpd;
-        }
-        //判断第三个和第四个参数
+
         var retObj = isReturnObject,
             opt = LHH.isObject(option) ? option : {};
+        //判断第三个和第四个参数
         if (LHH.isObject(isReturnObject)) {
             opt = isReturnObject;
             retObj = option;
         }
+        //如果第二个参数为true时，则转换obj2arr
+        if (LHH.isBoolean(maps2keys) && maps2keys) {
+            opt.isHandle = true;
+        }
+
+        var arr = [];
+        var d = obj2arr;
+        var m = LHH.isArray(maps2keys) ? maps2keys : false;
+        var k = LHH.isObject(maps2keys) ? maps2keys : false;
+        if (opt.isHandle) {
+            k = init_keys2childKeys(LHH.isArray(d) ? d[0] || {} : d);
+        }
+        if (!m && !k) {
+            var cpd = LHH.extend(d); //缺少参数，直接返回源数据副本
+            return LHH.isObject(d) ? [cpd] : cpd;
+        }
+
         if (LHH.isArray(d) && d.length) {
             //源数据为数组结构、数组不为空
             //data=[], keys={}
