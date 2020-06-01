@@ -14,6 +14,9 @@ const LHH = (()=>{
     const isString = (obj)=>{
         return Object.prototype.toString.call(obj) === '[object String]';
     };
+    var isBoolean = function isBoolean(obj) {
+        return Object.prototype.toString.call(obj) === '[object Boolean]';
+    };
     //借鉴jquery.extend
     const extend = (...args)=>{
     　　/*
@@ -89,6 +92,7 @@ const LHH = (()=>{
         isObject: isObject,
         isNumber: isNumber,
         isString: isString,
+        isBoolean: isBoolean,
         extend: extend
     }
 })();

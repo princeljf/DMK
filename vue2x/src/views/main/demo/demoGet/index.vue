@@ -64,10 +64,32 @@
                 '>
                 </codemirror>
             </div>
+
             <div class="common-output-box">
                 <p class="output-data">arr3 = {{$DMK.get(apiData2, keys2)}}</p>
                 <p class="output-data">obj3 = {{$DMK.get(apiData2, keys2, true)}}</p>
             </div>
+
+            <div class="common-step-title">4、用法四：DMK.get(obj, isHandle)</div>
+            <div class="common-code-box">
+                <span>示例四：isHandle是否处理数据，支持参数设置</span>
+                <codemirror value='
+<script>
+    let obj = { name1: undefined, score1: null, name2: "科目二", score2: "不合格" }
+    let arr1 = DMK.get(obj);//不处理，返回数组副本
+    let opt = {
+        valMapOpt:{ undefined: "转换undefined" }
+    };
+    let obj1 = DMK.get(obj, true, opt, true);//处理数据
+</script>       
+                '>
+                </codemirror>
+            </div>
+            <div class="common-output-box">
+                <p class="output-data">arr1 = {{$DMK.get(obj)}}</p>
+                <p class="output-data">obj1 = {{$DMK.get(obj, true, opt, true)}}</p>
+            </div>
+
             <h3 class="common-show-code">配置参数说明：DMK.get(arr2obj, maps2keys, option, isReturnObj)</h3>
             <table class="common-table-params">
                 <tr><th>参数名</th><th>类型</th><th>默认值</th><th>备注</th></tr>
@@ -99,8 +121,11 @@ export default {
                 {text: "name1", value: "score1"},
                 {text: "name2", value: "score2"},
             ],
-            keys2:{ text1: "name1", value1: "score1", text2: "name2", value2: "score2" }
-            
+            keys2:{ text1: "name1", value1: "score1", text2: "name2", value2: "score2" },
+            obj:{ name1: undefined, score1: null, name2: "科目二", score2: "不合格" },
+            opt:{
+                valMapOpt:{ undefined: "转换undefined" }
+            },
         }
     },
 }
