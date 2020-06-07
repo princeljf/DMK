@@ -327,6 +327,8 @@ export default {
 - 谢谢！
 
 ## 升级包操作
+授权
+npm adduser
 修改代码和readme.md后，执行命令：
 npm version patch
 npm publish

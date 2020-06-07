@@ -1,6 +1,7 @@
 import LHH from './LHH.js';
 //全局配置项
 let DEF_OPT = {
+    inheritAttrs: false,//是否把$attrs数据当作html属性展示
     dmkMapOpt:{
         d:'$attrs.d',     
         m:'$attrs.m', 
@@ -148,6 +149,7 @@ const dataMapsKeysMixins = {
         setOptionLock: 0, //判断全局配置是否设置过
         warn: true,
     },
+    inheritAttrs: DEF_OPT.inheritAttrs,
     name: 'dataMapsKeysMixins',
     data(){
         return {

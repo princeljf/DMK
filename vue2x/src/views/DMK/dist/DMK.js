@@ -12,6 +12,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 //全局配置项
 var DEF_OPT = {
+    inheritAttrs: false, //是否把$attrs数据当作html属性展示
     dmkMapOpt: {
         d: '$attrs.d',
         m: '$attrs.m',
@@ -170,6 +171,7 @@ var dataMapsKeysMixins = {
         setOptionLock: 0, //判断全局配置是否设置过
         warn: true
     },
+    inheritAttrs: DEF_OPT.inheritAttrs,
     name: 'dataMapsKeysMixins',
     data: function data() {
         var _this = this;

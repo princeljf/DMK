@@ -41,6 +41,7 @@ Vue.prototype.$DMK = DMK;//全局挂载DMK
 
 //全局配置项
 let DEF_OPT = {
+    inheritAttrs: false,//是否把$attrs数据当作html属性展示
     dmkMapOpt:{
         d:'$attrs.d',  //data     
         m:'$attrs.m',//maps
